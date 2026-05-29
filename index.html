@@ -115,18 +115,18 @@ nav{height:64px;background:var(--blue);display:flex;align-items:center;padding:0
 .icd-section{padding:12px 18px;border-bottom:1px solid var(--gray-200);}
 .icd-section:last-child{border-bottom:none;}
 .icd-stitle{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--gray-400);margin-bottom:8px;}
-.icd-row{display:grid;grid-template-columns:110px 1fr auto;align-items:start;gap:10px;padding:9px 11px;border-radius:6px;border:1px solid var(--gray-200);background:var(--gray-50);margin-bottom:7px;opacity:0;transform:translateY(4px);transition:opacity .28s ease,transform .28s ease;}
+.icd-row{display:grid;grid-template-columns:110px 1fr;align-items:start;gap:10px;padding:9px 11px;border-radius:6px;border:1px solid var(--gray-200);background:var(--gray-50);margin-bottom:7px;opacity:0;transform:translateY(4px);transition:opacity .28s ease,transform .28s ease;}
 .icd-row:last-child{margin-bottom:0;}
 .icd-row.show{opacity:1;transform:none;}
 .icd-row.primer{border-color:#bfdbfe;background:#eff6ff;}
 .icd-code{font-size:13.5px;font-weight:700;color:var(--blue);font-family:'SF Mono',Monaco,monospace;letter-spacing:.3px;}
 .icd-row.sekunder .icd-code{color:var(--gray-500);}
 .icd-desc{font-size:13px;color:var(--gray-700);line-height:1.4;}
-.icd-reason{font-size:11px;color:var(--gray-400);margin-top:3px;}
-.conf{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap;flex-shrink:0;}
-.c-h{background:#dcfce7;color:#16a34a;}
-.c-m{background:#fef9c3;color:#a16207;}
-.c-l{background:#fee2e2;color:#dc2626;}
+
+
+
+
+
 .icd-info{font-size:12px;color:var(--gray-400);font-style:italic;padding:8px 18px 12px;}
 .icd-flag{display:none;margin:0 18px 12px;padding:9px 12px;background:var(--amber-light);border:1px solid rgba(217,119,6,.2);border-radius:6px;font-size:12px;color:var(--amber);line-height:1.6;}
 .icd-flag.visible{display:block;}
@@ -324,8 +324,8 @@ function clearAll(){
 // ── SINGLE COMBINED PROMPT — hemat ~40% token ─────────────────
 const SYS=`Asisten medis+koder ICD-10 RS Sansani. Abaikan: BPJS/asuransi/biaya/faskes lain. Bahasa: ID/EN/Minang/Jawa/Batak.
 Kembalikan HANYA JSON ini tanpa teks lain:
-{"S":"keluhan utama, onset, durasi, karakteristik nyeri/gejala, faktor memperberat/memperingan, riwayat penyakit terkait — maks 60 kata","O":"","A":"diagnosis kerja — maks 15 kata","P_terapi":"rekomendasi terapi singkat tanpa jadwal/jaminan — maks 20 kata","P_penunjang":["maks 5 item singkat"],"icd10":[{"code":"X00.0","description":"singkat","type":"primer|sekunder","confidence":"tinggi|sedang|rendah","reason":"singkat"}],"icd_flag":null,"icd_info":null}
-Rules: O="". icd10 maks 3 kode. P_penunjang [] jika tidak ada.`;
+{"S":"keluhan utama, onset, durasi, karakteristik nyeri/gejala, faktor memperberat/memperingan, riwayat penyakit terkait — maks 60 kata","O":"","A":"diagnosis kerja — maks 15 kata","P_terapi":"rekomendasi terapi singkat tanpa jadwal/jaminan — maks 20 kata","P_penunjang":["maks 5 item singkat"],"icd10":[{"code":"X00.0","description":"singkat","type":"primer|sekunder"}],"icd_flag":null,"icd_info":null}
+Rules: O="". icd10 maks 3 kode, tanpa confidence/reason. P_penunjang [] jika tidak ada.`;
 
 async function analyze(){
   const tx=finalTx.trim();
@@ -471,12 +471,9 @@ function renderICD(r){
 }
 
 function icdRow(x,type,idx){
-  const cc=x.confidence==='tinggi'?'c-h':x.confidence==='sedang'?'c-m':'c-l';
-  const cl=x.confidence==='tinggi'?'Tinggi':x.confidence==='sedang'?'Sedang':'Rendah';
   return `<div class="icd-row ${type}" style="transition-delay:${idx*0.06}s">
     <div class="icd-code">${esc(x.code)}</div>
-    <div><div class="icd-desc">${esc(x.description)}</div><div class="icd-reason">${esc(x.reason||'')}</div></div>
-    <span class="conf ${cc}">${cl}</span>
+    <div class="icd-desc">${esc(x.description)}</div>
   </div>`;
 }
 
@@ -528,9 +525,9 @@ function copyICD(){
   if(!lastResult||!lastResult.icd10)return;
   const codes=lastResult.icd10;
   let txt='=== REKOMENDASI ICD-10 (DRAFT) ===\nWajib diverifikasi koder sebelum klaim.\n\n';
-  codes.filter(x=>x.type==='primer').forEach(x=>{txt+=`[UTAMA] ${x.code} — ${x.description} (${x.confidence})\n  Dasar: ${x.reason}\n`;});
+  codes.filter(x=>x.type==='primer').forEach(x=>{txt+=`[UTAMA] ${x.code} — ${x.description}\n`;});
   const sek=codes.filter(x=>x.type==='sekunder');
-  if(sek.length){txt+='\n';sek.forEach(x=>{txt+=`[SEKUNDER] ${x.code} — ${x.description} (${x.confidence})\n  Dasar: ${x.reason}\n`;});}
+  if(sek.length){txt+='\n';sek.forEach(x=>{txt+=`[SEKUNDER] ${x.code} — ${x.description}\n`;});}
   if(lastResult.icd_info)txt+=`\nInfo: ${lastResult.icd_info}\n`;
   if(lastResult.icd_flag)txt+=`Catatan: ${lastResult.icd_flag}\n`;
   navigator.clipboard.writeText(txt.trim()).then(()=>{
