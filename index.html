@@ -8,472 +8,95 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
-/* ── ADMIN: GANTI API KEY DI SINI ── */
-/* Cari variabel ANTHROPIC_API_KEY di bagian <script> di bawah */
-
 :root{
-  --bg:#f5f2eb;
-  --bg2:#ede9e0;
-  --bg3:#e4dfd3;
-  --ink:#1a1a18;
-  --ink2:#4a4a44;
-  --ink3:#8a8a80;
-  --ink4:#b8b8b0;
-  --rule:#d0ccc0;
-  --accent:#1a5c3a;
-  --accent-light:#e8f2ec;
-  --accent-mid:#4a9e6e;
-  --red:#8b2020;
-  --red-light:#f5e8e8;
-  --amber:#7a5200;
-  --amber-light:#f5f0e0;
-  --S:#1a4a7a;
-  --O:#5a1a7a;
-  --A:#7a3a00;
-  --P:#1a5c3a;
+  --bg:#f5f2eb;--bg2:#ede9e0;--bg3:#e4dfd3;
+  --ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;--ink4:#b8b8b0;
+  --rule:#d0ccc0;--accent:#1a5c3a;--accent-light:#e8f2ec;--accent-mid:#4a9e6e;
+  --red:#8b2020;--red-light:#f5e8e8;--amber:#7a5200;--amber-light:#f5f0e0;
+  --S:#1a4a7a;--O:#5a1a7a;--A:#7a3a00;--P:#1a5c3a;
   --shadow:0 1px 3px rgba(0,0,0,0.08),0 4px 16px rgba(0,0,0,0.04);
-  --shadow-lg:0 2px 8px rgba(0,0,0,0.1),0 8px 32px rgba(0,0,0,0.08);
 }
-
-html,body{
-  min-height:100vh;
-  background:var(--bg);
-  color:var(--ink);
-  font-family:'IBM Plex Mono',monospace;
-  font-size:12.5px;
-  line-height:1.65;
-}
-
-/* Paper texture */
-body::after{
-  content:'';
-  position:fixed;
-  inset:0;
-  background-image:
-    repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(0,0,0,0.025) 27px,rgba(0,0,0,0.025) 28px);
-  pointer-events:none;
-  z-index:0;
-}
-
-.wrap{
-  position:relative;
-  z-index:1;
-  max-width:1160px;
-  margin:0 auto;
-  padding:0 28px 40px;
-}
-
-/* ── HEADER ── */
-header{
-  padding:28px 0 20px;
-  border-bottom:2px solid var(--ink);
-  margin-bottom:28px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.brand{
-  display:flex;
-  align-items:baseline;
-  gap:14px;
-}
-
-.brand-name{
-  font-family:'Lora',serif;
-  font-size:26px;
-  font-weight:600;
-  font-style:italic;
-  color:var(--ink);
-  letter-spacing:-0.5px;
-}
-
-.brand-ver{
-  font-size:10px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  color:var(--ink3);
-  font-weight:400;
-}
-
-.lang-row{
-  display:flex;
-  gap:5px;
-  flex-wrap:wrap;
-}
-
-.lang-chip{
-  font-size:10px;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  padding:3px 9px;
-  border:1px solid var(--rule);
-  border-radius:2px;
-  color:var(--ink3);
-  background:var(--bg2);
-}
-
-/* ── MAIN GRID ── */
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-}
-
-@media(max-width:720px){
-  .grid{grid-template-columns:1fr}
-}
-
-/* ── CARD ── */
-.card{
-  background:#fff;
-  border:1px solid var(--rule);
-  border-radius:4px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-
-.card-head{
-  padding:12px 18px;
-  border-bottom:1px solid var(--rule);
-  background:var(--bg2);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.card-title{
-  font-size:10px;
-  letter-spacing:2.5px;
-  text-transform:uppercase;
-  color:var(--ink3);
-  font-weight:500;
-}
-
-.card-body{padding:18px}
-
-/* ── RECORD ZONE ── */
-.record-center{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:16px;
-  padding:20px 0 24px;
-}
-
-.rec-ring{
-  width:80px;height:80px;
-  border-radius:50%;
-  border:2px solid var(--rule);
-  background:var(--bg2);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-  transition:all .25s ease;
-  outline:none;
-  position:relative;
-}
+html,body{min-height:100vh;background:var(--bg);color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.65;}
+body::after{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(0,0,0,0.025) 27px,rgba(0,0,0,0.025) 28px);pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:0 28px 40px;}
+header{padding:28px 0 20px;border-bottom:2px solid var(--ink);margin-bottom:28px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;}
+.brand{display:flex;align-items:baseline;gap:14px;}
+.brand-name{font-family:'Lora',serif;font-size:26px;font-weight:600;font-style:italic;color:var(--ink);letter-spacing:-0.5px;}
+.brand-ver{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);}
+.lang-row{display:flex;gap:5px;flex-wrap:wrap;}
+.lang-chip{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;border:1px solid var(--rule);border-radius:2px;color:var(--ink3);background:var(--bg2);}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--rule);border-radius:4px;box-shadow:var(--shadow);overflow:hidden;}
+.card-head{padding:12px 18px;border-bottom:1px solid var(--rule);background:var(--bg2);display:flex;align-items:center;justify-content:space-between;}
+.card-title{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink3);font-weight:500;}
+.card-body{padding:18px;}
+.record-center{display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px 0 24px;}
+.rec-ring{width:80px;height:80px;border-radius:50%;border:2px solid var(--rule);background:var(--bg2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s ease;outline:none;}
 .rec-ring:hover{border-color:var(--accent);box-shadow:0 0 0 6px var(--accent-light)}
-.rec-ring.on{
-  border-color:var(--red);
-  background:var(--red-light);
-  box-shadow:0 0 0 6px rgba(139,32,32,.1);
-  animation:rec-pulse 2s ease-in-out infinite;
-}
-@keyframes rec-pulse{
-  0%,100%{box-shadow:0 0 0 6px rgba(139,32,32,.1)}
-  50%{box-shadow:0 0 0 12px rgba(139,32,32,.04)}
-}
-
-.rec-icon{
-  width:22px;height:22px;
-  border-radius:50%;
-  background:var(--accent);
-  transition:all .2s;
-}
-.rec-ring.on .rec-icon{
-  background:var(--red);
-  border-radius:4px;
-  width:18px;height:18px;
-}
-
-.rec-meta{text-align:center}
-.rec-label{
-  font-size:11px;
-  color:var(--ink3);
-  letter-spacing:.5px;
-}
+.rec-ring.on{border-color:var(--red);background:var(--red-light);animation:rec-pulse 2s ease-in-out infinite;}
+@keyframes rec-pulse{0%,100%{box-shadow:0 0 0 6px rgba(139,32,32,.1)}50%{box-shadow:0 0 0 12px rgba(139,32,32,.04)}}
+.rec-icon{width:22px;height:22px;border-radius:50%;background:var(--accent);transition:all .2s;}
+.rec-ring.on .rec-icon{background:var(--red);border-radius:4px;width:18px;height:18px;}
+.rec-meta{text-align:center;}
+.rec-label{font-size:11px;color:var(--ink3);letter-spacing:.5px;}
 .rec-label.on{color:var(--red)}
-
-.rec-timer{
-  font-family:'Lora',serif;
-  font-size:32px;
-  font-weight:400;
-  color:var(--ink2);
-  letter-spacing:3px;
-  margin-top:2px;
-  font-variant-numeric:tabular-nums;
-}
+.rec-timer{font-family:'Lora',serif;font-size:32px;font-weight:400;color:var(--ink2);letter-spacing:3px;margin-top:2px;font-variant-numeric:tabular-nums;}
 .rec-timer.on{color:var(--red)}
-
-/* ── WAVEFORM ── */
-.wave{
-  display:flex;align-items:center;
-  gap:3px;height:32px;
-  opacity:0;transition:opacity .3s;
-}
+.wave{display:flex;align-items:center;gap:3px;height:32px;opacity:0;transition:opacity .3s;}
 .wave.on{opacity:1}
-.wbar{
-  width:3px;border-radius:2px;
-  background:var(--red);
-  height:4px;
-  transition:height .1s ease;
-  opacity:.7;
-}
-
-/* ── TRANSCRIPT ── */
-.transcript{
-  border:1px solid var(--rule);
-  border-radius:3px;
-  background:var(--bg);
-  padding:14px;
-  min-height:180px;
-  max-height:260px;
-  overflow-y:auto;
-  font-size:12px;
-  line-height:1.85;
-  color:var(--ink2);
-  white-space:pre-wrap;
-  word-break:break-word;
-  scrollbar-width:thin;
-  scrollbar-color:var(--rule) transparent;
-  font-family:'IBM Plex Mono',monospace;
-}
-.transcript:empty::before{
-  content:'Transkrip percakapan akan muncul real-time saat perekaman...';
-  color:var(--ink4);
-  font-style:italic;
-}
-.interim{color:var(--ink4);font-style:italic}
-
-/* ── BUTTONS ── */
-.btn-row{
-  display:grid;
-  grid-template-columns:1fr 2fr;
-  gap:10px;
-  margin-top:14px;
-}
-
-.btn{
-  padding:11px 16px;
-  border-radius:3px;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:10px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  cursor:pointer;
-  transition:all .2s;
-  border:1px solid transparent;
-  outline:none;
-  font-weight:500;
-}
-
-.btn-ghost{
-  background:transparent;
-  border-color:var(--rule);
-  color:var(--ink3);
-}
+.wbar{width:3px;border-radius:2px;background:var(--red);height:4px;transition:height .1s ease;opacity:.7;}
+.transcript{border:1px solid var(--rule);border-radius:3px;background:var(--bg);padding:14px;min-height:180px;max-height:260px;overflow-y:auto;font-size:12px;line-height:1.85;color:var(--ink2);white-space:pre-wrap;word-break:break-word;scrollbar-width:thin;scrollbar-color:var(--rule) transparent;}
+.transcript:empty::before{content:'Transkrip percakapan akan muncul real-time saat perekaman...';color:var(--ink4);font-style:italic;}
+.interim{color:var(--ink4);font-style:italic;}
+.btn-row{display:grid;grid-template-columns:1fr 2fr;gap:10px;margin-top:14px;}
+.btn{padding:11px 16px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;border:1px solid transparent;outline:none;font-weight:500;}
+.btn-ghost{background:transparent;border-color:var(--rule);color:var(--ink3);}
 .btn-ghost:hover{border-color:var(--ink3);color:var(--ink2)}
-
-.btn-primary{
-  background:var(--accent);
-  color:#fff;
-  border-color:var(--accent);
-}
-.btn-primary:hover:not(:disabled){
-  background:#144d30;
-  box-shadow:0 2px 8px rgba(26,92,58,.25);
-}
-.btn-primary:disabled{
-  background:var(--rule);
-  border-color:var(--rule);
-  color:var(--ink4);
-  cursor:not-allowed;
-}
-.btn-primary.loading{
-  background:var(--ink3);
-  border-color:var(--ink3);
-  animation:btn-blink 1.2s ease-in-out infinite;
-}
-@keyframes btn-blink{
-  0%,100%{opacity:.6}50%{opacity:1}
-}
-
-/* ── ALERT ── */
-.alert{
-  border-radius:3px;
-  padding:10px 14px;
-  font-size:11px;
-  line-height:1.5;
-  margin-bottom:14px;
-  display:none;
-}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+.btn-primary:hover:not(:disabled){background:#144d30;box-shadow:0 2px 8px rgba(26,92,58,.25);}
+.btn-primary:disabled{background:var(--rule);border-color:var(--rule);color:var(--ink4);cursor:not-allowed;}
+.btn-primary.loading{background:var(--ink3);border-color:var(--ink3);animation:btn-blink 1.2s ease-in-out infinite;}
+@keyframes btn-blink{0%,100%{opacity:.6}50%{opacity:1}}
+.alert{border-radius:3px;padding:10px 14px;font-size:11px;line-height:1.5;margin-bottom:14px;display:none;}
 .alert.err{background:var(--red-light);border:1px solid rgba(139,32,32,.2);color:var(--red);display:block}
 .alert.warn{background:var(--amber-light);border:1px solid rgba(122,82,0,.2);color:var(--amber);display:block}
 .alert.ok{background:var(--accent-light);border:1px solid rgba(26,92,58,.2);color:var(--accent);display:block}
-
-/* ── SOAP OUTPUT ── */
-.soap-wrap{
-  display:flex;flex-direction:column;
-  gap:0;
-}
-
-.soap-empty{
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  min-height:340px;
-  gap:12px;
-  color:var(--ink4);
-}
-.soap-empty-letters{
-  font-family:'Lora',serif;
-  font-size:52px;
-  font-weight:400;
-  font-style:italic;
-  letter-spacing:8px;
-  color:var(--rule);
-  line-height:1;
-}
-.soap-empty-hint{
-  font-size:11px;
-  text-align:center;
-  color:var(--ink4);
-  line-height:1.8;
-}
-
-.soap-block{
-  padding:18px 20px;
-  border-bottom:1px solid var(--rule);
-  opacity:0;
-  transform:translateY(5px);
-  transition:opacity .35s ease,transform .35s ease;
-}
+.soap-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:340px;gap:12px;}
+.soap-empty-letters{font-family:'Lora',serif;font-size:52px;font-weight:400;font-style:italic;letter-spacing:8px;color:var(--rule);line-height:1;}
+.soap-empty-hint{font-size:11px;text-align:center;color:var(--ink4);line-height:1.8;}
+.soap-block{padding:18px 20px;border-bottom:1px solid var(--rule);opacity:0;transform:translateY(5px);transition:opacity .35s ease,transform .35s ease;}
 .soap-block:last-child{border-bottom:none}
 .soap-block.show{opacity:1;transform:none}
-
 .soap-block:nth-child(1){transition-delay:.04s}
 .soap-block:nth-child(2){transition-delay:.12s}
 .soap-block:nth-child(3){transition-delay:.20s}
 .soap-block:nth-child(4){transition-delay:.28s}
-
-.soap-top{
-  display:flex;align-items:baseline;
-  gap:10px;margin-bottom:10px;
-}
-
-.soap-glyph{
-  font-family:'Lora',serif;
-  font-size:36px;
-  font-weight:600;
-  font-style:italic;
-  line-height:1;
-  flex-shrink:0;
-}
-.soap-info{}
-.soap-word{
-  font-size:13px;
-  font-weight:500;
-  color:var(--ink);
-  font-family:'Lora',serif;
-}
-.soap-desc{
-  font-size:10px;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  color:var(--ink3);
-  margin-top:1px;
-}
-
-.soap-block[data-s="S"] .soap-glyph{color:var(--S)}
-.soap-block[data-s="O"] .soap-glyph{color:var(--O)}
-.soap-block[data-s="A"] .soap-glyph{color:var(--A)}
-.soap-block[data-s="P"] .soap-glyph{color:var(--P)}
-
-.soap-block[data-s="S"]{border-left:3px solid var(--S)}
-.soap-block[data-s="O"]{border-left:3px solid var(--O)}
-.soap-block[data-s="A"]{border-left:3px solid var(--A)}
-.soap-block[data-s="P"]{border-left:3px solid var(--P)}
-
-.soap-text{
-  font-size:12px;
-  line-height:1.9;
-  color:var(--ink2);
-  white-space:pre-wrap;
-}
-
-/* ── COPY BUTTON ── */
-.copy-btn{
-  margin-top:16px;
-  width:100%;
-  padding:9px;
-  background:transparent;
-  border:1px solid var(--rule);
-  color:var(--ink3);
-  font-family:'IBM Plex Mono',monospace;
-  font-size:10px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  cursor:pointer;
-  border-radius:3px;
-  transition:all .2s;
-  display:none;
-}
+.soap-top{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;}
+.soap-glyph{font-family:'Lora',serif;font-size:36px;font-weight:600;font-style:italic;line-height:1;flex-shrink:0;}
+.soap-word{font-size:13px;font-weight:500;color:var(--ink);font-family:'Lora',serif;}
+.soap-desc{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-top:1px;}
+.soap-block[data-s="S"] .soap-glyph{color:var(--S)} .soap-block[data-s="O"] .soap-glyph{color:var(--O)}
+.soap-block[data-s="A"] .soap-glyph{color:var(--A)} .soap-block[data-s="P"] .soap-glyph{color:var(--P)}
+.soap-block[data-s="S"]{border-left:3px solid var(--S)} .soap-block[data-s="O"]{border-left:3px solid var(--O)}
+.soap-block[data-s="A"]{border-left:3px solid var(--A)} .soap-block[data-s="P"]{border-left:3px solid var(--P)}
+.soap-text{font-size:12px;line-height:1.9;color:var(--ink2);white-space:pre-wrap;}
+.copy-btn{margin-top:16px;width:100%;padding:9px;background:transparent;border:1px solid var(--rule);color:var(--ink3);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .2s;display:none;}
 .copy-btn:hover{border-color:var(--ink3);color:var(--ink2)}
 .copy-btn.visible{display:block}
-
-/* ── FOOTER STATUS ── */
-.status-bar{
-  margin-top:20px;
-  padding:10px 16px;
-  background:var(--bg2);
-  border:1px solid var(--rule);
-  border-radius:3px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:10px;
-  color:var(--ink3);
-  letter-spacing:.5px;
-}
-.status-dot{
-  width:7px;height:7px;
-  border-radius:50%;
-  background:var(--accent-mid);
-  flex-shrink:0;
-}
-.status-dot.warn{background:var(--amber)}
-.status-dot.err{background:var(--red)}
-
-/* ── TOKEN COUNTER ── */
-.token-est{
-  margin-left:auto;
-  font-size:10px;
-  color:var(--ink4);
-}
-
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--rule);border-radius:2px}
+.status-bar{margin-top:20px;padding:10px 16px;background:var(--bg2);border:1px solid var(--rule);border-radius:3px;display:flex;align-items:center;gap:10px;font-size:10px;color:var(--ink3);}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent-mid);flex-shrink:0;}
+.status-dot.warn{background:var(--amber)} .status-dot.err{background:var(--red)}
+.token-est{margin-left:auto;font-size:10px;color:var(--ink4);}
+::-webkit-scrollbar{width:4px} ::-webkit-scrollbar-thumb{background:var(--rule);border-radius:2px;}
 </style>
 </head>
 <body>
 <div class="wrap">
-
   <header>
     <div class="brand">
       <span class="brand-name">SOAP Transcriber</span>
-      <span class="brand-ver">v2.0 · Internal</span>
+      <span class="brand-ver">v2.1 · Internal</span>
     </div>
     <div class="lang-row">
       <span class="lang-chip">Indonesia</span>
@@ -485,17 +108,13 @@ header{
   </header>
 
   <div class="grid">
-
-    <!-- ── KIRI: REKAM ── -->
     <div class="card">
       <div class="card-head">
         <span class="card-title">Rekam Percakapan</span>
         <span id="recIndicator" style="font-size:10px;color:var(--ink4)">Siap</span>
       </div>
       <div class="card-body">
-
         <div id="alertBox"></div>
-
         <div class="record-center">
           <button class="rec-ring" id="recBtn" onclick="toggleRecord()">
             <div class="rec-icon" id="recIcon"></div>
@@ -506,25 +125,17 @@ header{
           </div>
           <div class="wave" id="wave"></div>
         </div>
-
         <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;display:flex;align-items:center;gap:8px">
-          Transkrip
-          <span style="flex:1;height:1px;background:var(--rule);display:block"></span>
+          Transkrip<span style="flex:1;height:1px;background:var(--rule);display:block"></span>
         </div>
-
         <div class="transcript" id="transcriptBox"></div>
-
         <div class="btn-row">
           <button class="btn btn-ghost" onclick="clearAll()">↺ Reset</button>
-          <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeSOAP()" disabled>
-            Analisis → SOAP
-          </button>
+          <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeSOAP()" disabled>Analisis → SOAP</button>
         </div>
-
       </div>
     </div>
 
-    <!-- ── KANAN: SOAP ── -->
     <div class="card">
       <div class="card-head">
         <span class="card-title">Format SOAP</span>
@@ -542,385 +153,204 @@ header{
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- STATUS BAR -->
   <div class="status-bar">
     <div class="status-dot" id="statusDot"></div>
     <span id="statusMsg">Sistem siap · Web Speech API aktif</span>
     <span class="token-est" id="tokenEst"></span>
   </div>
-
 </div>
 
 <script>
-// ════════════════════════════════════════════════════════════
-//  ADMIN CONFIG — GANTI NILAI DI BAWAH INI
-// ════════════════════════════════════════════════════════════
-const ANTHROPIC_API_KEY = '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'; // contoh: 'sk-ant-api03-xxx...'
-// ════════════════════════════════════════════════════════════
+// Tidak ada API key di sini — disimpan aman di Worker (worker.js)
 
-// ── STATE ────────────────────────────────────────────────────
-let recognition  = null;
-let isRecording  = false;
-let timerRef     = null;
-let waveRef      = null;
-let seconds      = 0;
-let finalTx      = '';
-let interimTx    = '';
-let waveBars     = [];
-let lastSOAP     = null;
+let recognition=null,isRecording=false,timerRef=null,waveRef=null;
+let seconds=0,finalTx='',interimTx='',waveBars=[],lastSOAP=null;
 
-// ── INIT ─────────────────────────────────────────────────────
 (function init(){
-  // Build wave bars
-  const wf = document.getElementById('wave');
-  for(let i=0;i<26;i++){
-    const b = document.createElement('div');
-    b.className = 'wbar';
-    wf.appendChild(b);
-    waveBars.push(b);
-  }
-
-  // Validate API key
-  if(!ANTHROPIC_API_KEY || ANTHROPIC_API_KEY.startsWith('GANTI')){
-    setStatus('API key belum dikonfigurasi — hubungi admin','err');
-  } else {
-    setStatus('Sistem siap · Web Speech API aktif','ok');
-  }
-
-  // Check browser support
-  if(!window.SpeechRecognition && !window.webkitSpeechRecognition){
+  const wf=document.getElementById('wave');
+  for(let i=0;i<26;i++){const b=document.createElement('div');b.className='wbar';wf.appendChild(b);waveBars.push(b);}
+  if(!window.SpeechRecognition&&!window.webkitSpeechRecognition){
     showAlert('Browser tidak mendukung Web Speech API. Gunakan Google Chrome atau Microsoft Edge.','err');
-    document.getElementById('recBtn').disabled = true;
+    document.getElementById('recBtn').disabled=true;
   }
+  setStatus('Sistem siap · Web Speech API aktif','ok');
 })();
 
-// ── WAVE ANIMATION ────────────────────────────────────────────
-function animWave(){
-  waveBars.forEach(b=>{
-    b.style.height = (Math.random()*26+4)+'px';
-    b.style.opacity = 0.4+Math.random()*0.55;
-  });
-}
+function animWave(){waveBars.forEach(b=>{b.style.height=(Math.random()*26+4)+'px';b.style.opacity=0.4+Math.random()*0.55;});}
 
-// ── RECOGNITION SETUP ────────────────────────────────────────
 function buildRecognition(){
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SR) return null;
-
-  const r = new SR();
-  r.continuous     = true;
-  r.interimResults = true;
-  // id-ID memberikan coverage terbaik untuk Indonesia + campur bahasa daerah
-  r.lang           = 'id-ID';
-  r.maxAlternatives = 1;
-
-  r.onresult = e=>{
-    interimTx = '';
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR)return null;
+  const r=new SR();
+  r.continuous=true;r.interimResults=true;r.lang='id-ID';r.maxAlternatives=1;
+  r.onresult=e=>{
+    interimTx='';
     for(let i=e.resultIndex;i<e.results.length;i++){
-      const t = e.results[i][0].transcript;
-      if(e.results[i].isFinal) finalTx += t+' ';
-      else interimTx = t;
+      const t=e.results[i][0].transcript;
+      if(e.results[i].isFinal)finalTx+=t+' '; else interimTx=t;
     }
-    renderTx();
-    updateTokenEst();
-    document.getElementById('analyzeBtn').disabled = finalTx.trim().length < 15;
+    renderTx();updateTokenEst();
+    document.getElementById('analyzeBtn').disabled=finalTx.trim().length<15;
   };
-
-  r.onerror = e=>{
-    if(e.error==='not-allowed'){
-      showAlert('Akses mikrofon ditolak. Klik ikon kunci di address bar browser dan izinkan mikrofon.','err');
-      stopRecord();
-    } else if(e.error==='network'){
-      showAlert('Web Speech API butuh koneksi internet aktif untuk transkripsi.','warn');
-    } else if(e.error==='no-speech'){
-      // silent — normal kalau tidak ada suara
-    }
+  r.onerror=e=>{
+    if(e.error==='not-allowed'){showAlert('Akses mikrofon ditolak. Izinkan akses mikrofon di browser.','err');stopRecord();}
+    else if(e.error==='network'){showAlert('Web Speech API butuh koneksi internet untuk transkripsi.','warn');}
   };
-
-  // Auto-restart agar rekaman tidak putus
-  r.onend = ()=>{ if(isRecording){ try{r.start()}catch(e){} } };
-
+  r.onend=()=>{if(isRecording){try{r.start()}catch(e){}}};
   return r;
 }
 
-// ── TRANSCRIPT RENDER ────────────────────────────────────────
 function renderTx(){
-  const box = document.getElementById('transcriptBox');
-  box.innerHTML = '';
-  if(finalTx){
-    const s = document.createElement('span');
-    s.textContent = finalTx;
-    box.appendChild(s);
-  }
-  if(interimTx){
-    const s = document.createElement('span');
-    s.className = 'interim';
-    s.textContent = interimTx;
-    box.appendChild(s);
-  }
-  box.scrollTop = box.scrollHeight;
+  const box=document.getElementById('transcriptBox');
+  box.innerHTML='';
+  if(finalTx){const s=document.createElement('span');s.textContent=finalTx;box.appendChild(s);}
+  if(interimTx){const s=document.createElement('span');s.className='interim';s.textContent=interimTx;box.appendChild(s);}
+  box.scrollTop=box.scrollHeight;
 }
 
-// ── TOKEN ESTIMATE ────────────────────────────────────────────
 function updateTokenEst(){
-  const words = finalTx.trim().split(/\s+/).length;
-  const estTokenIn  = Math.round(words * 1.4) + 300; // + system prompt overhead
-  const estTokenOut = 400;
-  const costUSD = ((estTokenIn/1e6)*3) + ((estTokenOut/1e6)*15);
-  document.getElementById('tokenEst').textContent =
-    `~${estTokenIn} token input · est. $${costUSD.toFixed(4)}/call`;
+  const words=finalTx.trim().split(/\s+/).length;
+  const estIn=Math.round(words*1.4)+300,estOut=400;
+  const cost=((estIn/1e6)*3)+((estOut/1e6)*15);
+  document.getElementById('tokenEst').textContent=`~${estIn} token · est. $${cost.toFixed(4)}/call`;
 }
 
-// ── RECORD TOGGLE ─────────────────────────────────────────────
-function toggleRecord(){
-  if(isRecording) stopRecord(); else startRecord();
-}
+function toggleRecord(){if(isRecording)stopRecord();else startRecord();}
 
 function startRecord(){
   clearAlert();
-
-  if(!ANTHROPIC_API_KEY || ANTHROPIC_API_KEY.startsWith('GANTI')){
-    showAlert('API key belum dikonfigurasi. Hubungi admin sistem.','err');
-    return;
-  }
-
-  recognition = buildRecognition();
-  if(!recognition) return;
-
-  try{ recognition.start(); }
-  catch(e){ showAlert('Gagal akses mikrofon: '+e.message,'err'); return; }
-
-  isRecording = true;
-  seconds     = 0;
-
+  recognition=buildRecognition();
+  if(!recognition)return;
+  try{recognition.start();}catch(e){showAlert('Gagal akses mikrofon: '+e.message,'err');return;}
+  isRecording=true;seconds=0;
   document.getElementById('recBtn').classList.add('on');
   document.getElementById('recIcon').style.cssText='background:var(--red);border-radius:4px;width:18px;height:18px';
-  document.getElementById('recLabel').textContent  = 'Merekam...';
+  document.getElementById('recLabel').textContent='Merekam...';
   document.getElementById('recLabel').classList.add('on');
   document.getElementById('recTimer').classList.add('on');
-  document.getElementById('recIndicator').textContent = '● REC';
-  document.getElementById('recIndicator').style.color  = 'var(--red)';
+  document.getElementById('recIndicator').textContent='● REC';
+  document.getElementById('recIndicator').style.color='var(--red)';
   document.getElementById('wave').classList.add('on');
   setStatus('Merekam percakapan...','ok');
-
-  timerRef = setInterval(()=>{
-    seconds++;
-    const m=String(Math.floor(seconds/60)).padStart(2,'0');
-    const s=String(seconds%60).padStart(2,'0');
-    document.getElementById('recTimer').textContent=`${m}:${s}`;
-  },1000);
-
-  waveRef = setInterval(animWave, 110);
+  timerRef=setInterval(()=>{seconds++;const m=String(Math.floor(seconds/60)).padStart(2,'0'),s=String(seconds%60).padStart(2,'0');document.getElementById('recTimer').textContent=`${m}:${s}`;},1000);
+  waveRef=setInterval(animWave,110);
 }
 
 function stopRecord(){
-  if(recognition){
-    recognition.onend = null;
-    try{recognition.stop()}catch(e){}
-    recognition = null;
-  }
-  isRecording = false;
-  clearInterval(timerRef);
-  clearInterval(waveRef);
-
+  if(recognition){recognition.onend=null;try{recognition.stop()}catch(e){}recognition=null;}
+  isRecording=false;clearInterval(timerRef);clearInterval(waveRef);
   document.getElementById('recBtn').classList.remove('on');
   document.getElementById('recIcon').style.cssText='background:var(--accent);border-radius:50%;width:22px;height:22px';
-  document.getElementById('recLabel').textContent  = 'Rekaman selesai';
+  document.getElementById('recLabel').textContent='Rekaman selesai';
   document.getElementById('recLabel').classList.remove('on');
   document.getElementById('recTimer').classList.remove('on');
-  document.getElementById('recIndicator').textContent = 'Selesai';
-  document.getElementById('recIndicator').style.color  = 'var(--ink3)';
+  document.getElementById('recIndicator').textContent='Selesai';
+  document.getElementById('recIndicator').style.color='var(--ink4)';
   document.getElementById('wave').classList.remove('on');
   waveBars.forEach(b=>b.style.height='4px');
-
-  const ok = finalTx.trim().length >= 15;
-  document.getElementById('analyzeBtn').disabled = !ok;
-  setStatus(ok ? 'Siap dianalisis' : 'Transkrip terlalu pendek','ok');
+  const ok=finalTx.trim().length>=15;
+  document.getElementById('analyzeBtn').disabled=!ok;
+  setStatus(ok?'Siap dianalisis':'Transkrip terlalu pendek','ok');
 }
 
-// ── CLEAR ─────────────────────────────────────────────────────
 function clearAll(){
-  if(isRecording) stopRecord();
-  finalTx = ''; interimTx = ''; lastSOAP = null; seconds = 0;
-  document.getElementById('transcriptBox').innerHTML = '';
-  document.getElementById('recTimer').textContent    = '00:00';
-  document.getElementById('recLabel').textContent    = 'Tekan untuk mulai merekam';
-  document.getElementById('recIndicator').textContent= 'Siap';
-  document.getElementById('recIndicator').style.color= 'var(--ink4)';
-  document.getElementById('analyzeBtn').disabled     = true;
-  document.getElementById('tokenEst').textContent    = '';
-  document.getElementById('soapStatus').textContent  = 'Menunggu analisis';
+  if(isRecording)stopRecord();
+  finalTx='';interimTx='';lastSOAP=null;seconds=0;
+  document.getElementById('transcriptBox').innerHTML='';
+  document.getElementById('recTimer').textContent='00:00';
+  document.getElementById('recLabel').textContent='Tekan untuk mulai merekam';
+  document.getElementById('recIndicator').textContent='Siap';
+  document.getElementById('recIndicator').style.color='var(--ink4)';
+  document.getElementById('analyzeBtn').disabled=true;
+  document.getElementById('tokenEst').textContent='';
+  document.getElementById('soapStatus').textContent='Menunggu analisis';
   document.getElementById('copyBtn').classList.remove('visible');
-  document.getElementById('soapOutput').innerHTML    = `
-    <div class="soap-empty">
-      <div class="soap-empty-letters">SOAP</div>
-      <div class="soap-empty-hint">Rekam percakapan dokter–pasien<br>lalu tekan <em>Analisis → SOAP</em></div>
-    </div>`;
-  clearAlert();
-  setStatus('Sistem siap · Web Speech API aktif','ok');
+  document.getElementById('soapOutput').innerHTML=`<div class="soap-empty"><div class="soap-empty-letters">SOAP</div><div class="soap-empty-hint">Rekam percakapan dokter–pasien<br>lalu tekan <em>Analisis → SOAP</em></div></div>`;
+  clearAlert();setStatus('Sistem siap · Web Speech API aktif','ok');
 }
 
-// ── ANALYZE ───────────────────────────────────────────────────
 async function analyzeSOAP(){
-  const tx = finalTx.trim();
-  if(tx.length < 15){ showAlert('Transkrip terlalu pendek.','warn'); return; }
+  const tx=finalTx.trim();
+  if(tx.length<15){showAlert('Transkrip terlalu pendek.','warn');return;}
+  const btn=document.getElementById('analyzeBtn');
+  btn.disabled=true;btn.classList.add('loading');btn.textContent='Menganalisis...';
+  document.getElementById('soapStatus').textContent='Memproses...';
+  setStatus('Mengirim ke Claude untuk analisis...','ok');
+  document.getElementById('soapOutput').innerHTML=`<div class="soap-empty"><div class="soap-empty-letters">SOAP</div><div class="soap-empty-hint">Sedang menganalisis transkrip...</div></div>`;
 
-  const btn = document.getElementById('analyzeBtn');
-  btn.disabled = true;
-  btn.classList.add('loading');
-  btn.textContent = 'Menganalisis...';
-  document.getElementById('soapStatus').textContent = 'Memproses...';
-  setStatus('Mengirim transkrip ke Claude untuk analisis...','ok');
-
-  document.getElementById('soapOutput').innerHTML = `
-    <div class="soap-empty">
-      <div class="soap-empty-letters" style="animation:btn-blink 1.5s infinite">SOAP</div>
-      <div class="soap-empty-hint">Sedang menganalisis transkrip...</div>
-    </div>`;
-
-  const SYSTEM = `Kamu adalah asisten medis yang mengkonversi transkrip percakapan dokter-pasien menjadi format SOAP note.
-
+  const SYSTEM=`Kamu adalah asisten medis yang mengkonversi transkrip percakapan dokter-pasien menjadi format SOAP note.
 Transkrip mungkin dalam bahasa Indonesia, Inggris, atau campuran bahasa daerah Indonesia (Minang, Jawa, Batak). Transkripsi otomatis sering tidak sempurna — interpretasikan berdasarkan konteks medis.
-
 Kembalikan HANYA objek JSON berikut, tanpa teks lain, tanpa markdown fence:
 {"S":"...","O":"...","A":"...","P":"..."}
-
-Panduan:
-- S (Subjective): Keluhan utama, onset, durasi, karakteristik, riwayat penyakit sekarang, dan informasi lain yang dilaporkan pasien secara subjektif.
-- O (Objective): Tanda vital, hasil pemeriksaan fisik, hasil laboratorium, atau temuan objektif lain yang disebutkan dokter. Jika tidak ada dalam percakapan, tulis "Tidak disebutkan."
-- A (Assessment): Diagnosis kerja atau kesan klinis dokter. Jika tidak eksplisit, simpulkan dari konteks percakapan.
-- P (Plan): Rencana tatalaksana — resep obat, dosis, durasi, edukasi pasien, rujukan, follow-up, atau tindakan lanjutan.
-
-Gunakan Bahasa Indonesia baku dan terminologi medis yang tepat. Jika suatu komponen tidak dapat disimpulkan, nyatakan secara eksplisit.`;
+- S (Subjective): Keluhan utama, onset, durasi, karakteristik, riwayat penyakit sekarang.
+- O (Objective): Tanda vital, pemeriksaan fisik, lab. Jika tidak ada, tulis "Tidak disebutkan."
+- A (Assessment): Diagnosis kerja atau kesan klinis dokter.
+- P (Plan): Resep, dosis, durasi, edukasi, rujukan, follow-up.
+Gunakan Bahasa Indonesia baku dan terminologi medis yang tepat.`;
 
   try{
-    const resp = await fetch('/api/analyze',{
+    // Panggil Worker proxy — bukan Anthropic langsung
+    const resp=await fetch('/api/analyze',{
       method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'anthropic-version':'2023-06-01',
-      },
-      body: JSON.stringify({
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
         model:'claude-sonnet-4-20250514',
         max_tokens:1000,
-        system: SYSTEM,
+        system:SYSTEM,
         messages:[{role:'user',content:`Transkrip:\n\n${tx}`}]
       })
     });
-
-    if(!resp.ok){
-      const err = await resp.json().catch(()=>({}));
-      throw new Error(err.error?.message || `HTTP ${resp.status}`);
-    }
-
-    const data = await resp.json();
-    const raw  = data.content.find(b=>b.type==='text')?.text || '';
-
+    if(!resp.ok){const err=await resp.json().catch(()=>({}));throw new Error(err.error?.message||`HTTP ${resp.status}`);}
+    const data=await resp.json();
+    const raw=data.content.find(b=>b.type==='text')?.text||'';
     let soap;
-    try{
-      soap = JSON.parse(raw.replace(/```json|```/g,'').trim());
-    } catch(e){
-      throw new Error('Format respons tidak valid — coba rekam ulang dan analisis kembali.');
-    }
-
-    lastSOAP = soap;
-    renderSOAP(soap);
-
-    const usage = data.usage;
-    if(usage){
-      const cost = ((usage.input_tokens/1e6)*3)+((usage.output_tokens/1e6)*15);
-      document.getElementById('tokenEst').textContent =
-        `${usage.input_tokens} token input · ${usage.output_tokens} output · $${cost.toFixed(4)}`;
-    }
-    document.getElementById('soapStatus').textContent = 'Selesai';
+    try{soap=JSON.parse(raw.replace(/```json|```/g,'').trim());}
+    catch(e){throw new Error('Format respons tidak valid — coba rekam ulang.');}
+    lastSOAP=soap;renderSOAP(soap);
+    const u=data.usage;
+    if(u){const cost=((u.input_tokens/1e6)*3)+((u.output_tokens/1e6)*15);document.getElementById('tokenEst').textContent=`${u.input_tokens} in · ${u.output_tokens} out · $${cost.toFixed(4)}`;}
+    document.getElementById('soapStatus').textContent='Selesai';
     setStatus('Analisis selesai','ok');
-
-  } catch(err){
+  }catch(err){
     showAlert('Gagal: '+err.message,'err');
-    document.getElementById('soapOutput').innerHTML = `
-      <div class="soap-empty">
-        <div class="soap-empty-letters" style="color:var(--red);opacity:.3">!</div>
-        <div class="soap-empty-hint">Analisis gagal.<br>Periksa koneksi intranet ke internet.</div>
-      </div>`;
-    document.getElementById('soapStatus').textContent = 'Error';
-    setStatus('Analisis gagal — periksa koneksi','err');
-  } finally{
-    btn.disabled  = false;
-    btn.classList.remove('loading');
-    btn.textContent = 'Analisis → SOAP';
+    document.getElementById('soapOutput').innerHTML=`<div class="soap-empty"><div class="soap-empty-letters" style="color:var(--red);opacity:.3">!</div><div class="soap-empty-hint">Analisis gagal.<br>${err.message}</div></div>`;
+    document.getElementById('soapStatus').textContent='Error';
+    setStatus('Analisis gagal','err');
+  }finally{
+    btn.disabled=false;btn.classList.remove('loading');btn.textContent='Analisis → SOAP';
   }
 }
 
-// ── RENDER SOAP ───────────────────────────────────────────────
-const SOAP_META = {
-  S:{word:'Subjective', desc:'Keluhan & Riwayat Pasien'},
-  O:{word:'Objective',  desc:'Temuan Objektif'},
-  A:{word:'Assessment', desc:'Diagnosis / Kesan Klinis'},
-  P:{word:'Plan',       desc:'Rencana Tatalaksana'},
-};
+const SOAP_META={S:{word:'Subjective',desc:'Keluhan & Riwayat Pasien'},O:{word:'Objective',desc:'Temuan Objektif'},A:{word:'Assessment',desc:'Diagnosis / Kesan Klinis'},P:{word:'Plan',desc:'Rencana Tatalaksana'}};
 
 function renderSOAP(soap){
-  const html = ['S','O','A','P'].map(k=>`
+  const html=['S','O','A','P'].map(k=>`
     <div class="soap-block" data-s="${k}">
-      <div class="soap-top">
-        <span class="soap-glyph">${k}</span>
-        <div class="soap-info">
-          <div class="soap-word">${SOAP_META[k].word}</div>
-          <div class="soap-desc">${SOAP_META[k].desc}</div>
-        </div>
+      <div class="soap-top"><span class="soap-glyph">${k}</span>
+        <div><div class="soap-word">${SOAP_META[k].word}</div><div class="soap-desc">${SOAP_META[k].desc}</div></div>
       </div>
       <div class="soap-text">${esc(soap[k]||'—')}</div>
-    </div>
-  `).join('<div style="height:1px;background:var(--rule);margin:0 18px"></div>');
-
-  document.getElementById('soapOutput').innerHTML = html;
-
-  requestAnimationFrame(()=>{
-    document.querySelectorAll('.soap-block').forEach(el=>{
-      requestAnimationFrame(()=>el.classList.add('show'));
-    });
-  });
-
+    </div>`).join('<div style="height:1px;background:var(--rule);margin:0 18px"></div>');
+  document.getElementById('soapOutput').innerHTML=html;
+  requestAnimationFrame(()=>{document.querySelectorAll('.soap-block').forEach(el=>{requestAnimationFrame(()=>el.classList.add('show'));});});
   document.getElementById('copyBtn').classList.add('visible');
 }
 
-// ── COPY SOAP ─────────────────────────────────────────────────
 function copySOAP(){
-  if(!lastSOAP) return;
-  const txt = ['S','O','A','P'].map(k=>
-    `[${k} - ${SOAP_META[k].word}]\n${lastSOAP[k]||'—'}`
-  ).join('\n\n');
-
+  if(!lastSOAP)return;
+  const txt=['S','O','A','P'].map(k=>`[${k} - ${SOAP_META[k].word}]\n${lastSOAP[k]||'—'}`).join('\n\n');
   navigator.clipboard.writeText(txt).then(()=>{
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = '✓ Tersalin!';
-    setTimeout(()=>btn.textContent='⎘ Salin Hasil SOAP', 2000);
-  }).catch(()=>{
-    showAlert('Gagal menyalin — coba select manual.','warn');
-  });
+    const btn=document.getElementById('copyBtn');btn.textContent='✓ Tersalin!';
+    setTimeout(()=>btn.textContent='⎘ Salin Hasil SOAP',2000);
+  }).catch(()=>showAlert('Gagal menyalin — coba select manual.','warn'));
 }
 
-// ── HELPERS ───────────────────────────────────────────────────
-function esc(s){
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-function showAlert(msg, type){
-  document.getElementById('alertBox').innerHTML =
-    `<div class="alert ${type}">${msg}</div>`;
-}
-function clearAlert(){
-  document.getElementById('alertBox').innerHTML='';
-}
-
-function setStatus(msg, type){
-  document.getElementById('statusMsg').textContent = msg;
-  const dot = document.getElementById('statusDot');
-  dot.className = 'status-dot' + (type==='err'?' err': type==='warn'?' warn':'');
-}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function showAlert(msg,type){document.getElementById('alertBox').innerHTML=`<div class="alert ${type}">${msg}</div>`;}
+function clearAlert(){document.getElementById('alertBox').innerHTML='';}
+function setStatus(msg,type){document.getElementById('statusMsg').textContent=msg;const dot=document.getElementById('statusDot');dot.className='status-dot'+(type==='err'?' err':type==='warn'?' warn':'');}
 </script>
 </body>
 </html>
