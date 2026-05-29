@@ -319,30 +319,10 @@ function clearAll(){
 }
 
 // ── SINGLE COMBINED PROMPT — hemat ~40% token ─────────────────
-const SYS=`Asisten medis RS Sansani Pekanbaru. Analisis transkrip anamnesis dokter-pasien.
-
-Abaikan: BPJS, asuransi, biaya, faskes lain, percakapan non-klinis.
-Bahasa: Indonesia, Inggris, Minang, Jawa, Batak, atau campur.
-
-Kembalikan HANYA JSON ini (tanpa teks lain, tanpa markdown):
-{
-  "S": "keluhan utama, onset, durasi, karakteristik, riwayat penyakit",
-  "O": "TD: ___ mmHg | Nadi: ___ x/mnt | Suhu: ___ °C | RR: ___ x/mnt | SpO2: ___%\n\nPemeriksaan Fisik:\n[Diisi dokter setelah pemeriksaan fisik]",
-  "A": "diagnosis kerja berdasarkan anamnesis, terminologi medis",
-  "P_terapi": "rekomendasi terapi umum — obat golongan apa, pendekatan. Tanpa jadwal kontrol, tanpa referensi jaminan. Ini rekomendasi untuk dokter.",
-  "P_penunjang": ["Nama pemeriksaan 1", "Nama pemeriksaan 2"],
-  "icd10": [
-    {"code":"X00.0","description":"deskripsi bahasa Indonesia","type":"primer","confidence":"tinggi|sedang|rendah","reason":"alasan singkat"}
-  ],
-  "icd_flag": "peringatan untuk koder jika ada, atau null",
-  "icd_info": "info tambahan yang diperlukan untuk koding lebih spesifik, atau null"
-}
-
-Catatan:
-- Field O: selalu gunakan teks placeholder di atas persis, jangan diubah
-- P_penunjang: array string singkat, maks 6 item, kosong [] jika tidak ada indikasi
-- icd10 type: "primer" untuk diagnosis utama, "sekunder" untuk komorbiditas
-- Jika informasi tidak cukup untuk koding spesifik, beri kode umum dengan confidence rendah`;
+const SYS=`Asisten medis+koder ICD-10 RS Sansani. Abaikan: BPJS/asuransi/biaya/faskes lain. Bahasa: ID/EN/Minang/Jawa/Batak.
+Kembalikan HANYA JSON ini tanpa teks lain. Tiap field RINGKAS, maks 25 kata:
+{"S":"keluhan+onset+durasi","O":"","A":"diagnosis kerja","P_terapi":"terapi singkat tanpa jadwal/jaminan","P_penunjang":["maks 5 item"],"icd10":[{"code":"X00.0","description":"singkat","type":"primer|sekunder","confidence":"tinggi|sedang|rendah","reason":"singkat"}],"icd_flag":null,"icd_info":null}
+Rules: O="". icd10 maks 3 kode. P_penunjang [] jika tidak ada.`;
 
 async function analyze(){
   const tx=finalTx.trim();
@@ -360,7 +340,7 @@ async function analyze(){
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'claude-sonnet-4-5',
-        max_tokens:900,
+        max_tokens:400,
         system:SYS,
         messages:[{role:'user',content:`Transkrip anamnesis:\n\n${tx}`}]
       })
@@ -407,7 +387,7 @@ function renderSOAP(r){
   // S
   html+=blk('S',`<div class="sb-text">${esc(r.S||'—')}</div>`);
   // O — always placeholder
-  html+=blk('O',`<div class="o-placeholder">${esc(r.O||'TD: ___ mmHg | Nadi: ___ x/mnt | Suhu: ___ °C | RR: ___ x/mnt | SpO2: ___%\n\nPemeriksaan Fisik:\n[Diisi dokter setelah pemeriksaan fisik]')}</div>`);
+  html+=blk('O',`<div class="o-placeholder">TD: ___ mmHg | Nadi: ___ x/mnt | Suhu: ___ °C | RR: ___ x/mnt | SpO2: ___%<br><br>Pemeriksaan Fisik:<br>[Diisi dokter setelah pemeriksaan fisik]</div>`);
   // A
   html+=blk('A',`<div class="sb-text">${esc(r.A||'—')}</div>`);
   // P
@@ -422,10 +402,10 @@ function renderSOAP(r){
   if(pnj.length>0){
     p+=`<div class="checklist" id="checklist">`;
     pnj.forEach((item,i)=>{
-      p+=`<div class="chk-item" id="ci${i}" onclick="toggleChk(${i})">
-        <input type="checkbox" id="cb${i}" onclick="event.stopPropagation()">
+      p+=`<label class="chk-item" id="ci${i}" for="cb${i}">
+        <input type="checkbox" id="cb${i}" onchange="toggleChk(${i})">
         <span class="chk-label">${esc(item)}</span>
-      </div>`;
+      </label>`;
     });
     p+=`</div>`;
   }else{
@@ -446,9 +426,8 @@ function blk(key,inner){
 }
 
 function toggleChk(i){
-  const cb=document.getElementById(`cb${i}`);
-  const ci=document.getElementById(`ci${i}`);
-  cb.checked=!cb.checked;
+  const cb=document.getElementById('cb'+i);
+  const ci=document.getElementById('ci'+i);
   if(cb.checked){checkedItems.add(i);ci.classList.add('checked');}
   else{checkedItems.delete(i);ci.classList.remove('checked');}
 }
@@ -501,7 +480,7 @@ function copySOAP(){
   const r=lastResult;
   const pnj=Array.isArray(r.P_penunjang)?r.P_penunjang.filter((_,i)=>checkedItems.has(i)):[];
   let txt=`[S - Subjective]\n${r.S||'—'}\n\n`;
-  txt+=`[O - Objective]\n${r.O||'TD: ___\nPemeriksaan Fisik: [isi manual]'}\n\n`;
+  txt+=`[O - Objective]\nTD: ___ mmHg | Nadi: ___ x/mnt | Suhu: ___ °C | RR: ___ x/mnt | SpO2: ___%\n\nPemeriksaan Fisik:\n[Diisi dokter setelah pemeriksaan fisik]\n\n`;
   txt+=`[A - Assessment]\n${r.A||'—'}\n\n`;
   txt+=`[P - Plan]\n`;
   if(r.P_terapi)txt+=`Terapi: ${r.P_terapi}\n`;
