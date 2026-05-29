@@ -101,6 +101,9 @@ nav{height:64px;background:var(--blue);display:flex;align-items:center;padding:0
 .chk-item.checked .chk-label{color:var(--blue);font-weight:500;}
 .chk-empty{font-size:13px;color:var(--gray-400);font-style:italic;padding:4px 0;}
 
+.copy-sec-btn{background:transparent;border:1px solid var(--gray-200);color:var(--gray-400);border-radius:5px;padding:3px 8px;font-size:11px;cursor:pointer;transition:all .12s;flex-shrink:0;line-height:1.4;}
+.copy-sec-btn:hover{background:var(--blue-light);border-color:var(--blue);color:var(--blue);}
+.copy-sec-btn.ok{background:#dcfce7;border-color:#86efac;color:#16a34a;}
 .copy-btn{display:none;margin:0 20px 16px;padding:9px;border-radius:var(--r);background:transparent;border:1px solid var(--gray-200);color:var(--gray-500);font-size:13px;font-weight:500;cursor:pointer;transition:all .12s;width:calc(100% - 40px);}
 .copy-btn:hover{background:var(--gray-100);border-color:var(--gray-300);color:var(--gray-700);}
 .copy-btn.visible{display:block;}
@@ -320,8 +323,8 @@ function clearAll(){
 
 // ── SINGLE COMBINED PROMPT — hemat ~40% token ─────────────────
 const SYS=`Asisten medis+koder ICD-10 RS Sansani. Abaikan: BPJS/asuransi/biaya/faskes lain. Bahasa: ID/EN/Minang/Jawa/Batak.
-Kembalikan HANYA JSON ini tanpa teks lain. Tiap field RINGKAS, maks 25 kata:
-{"S":"keluhan+onset+durasi","O":"","A":"diagnosis kerja","P_terapi":"terapi singkat tanpa jadwal/jaminan","P_penunjang":["maks 5 item"],"icd10":[{"code":"X00.0","description":"singkat","type":"primer|sekunder","confidence":"tinggi|sedang|rendah","reason":"singkat"}],"icd_flag":null,"icd_info":null}
+Kembalikan HANYA JSON ini tanpa teks lain:
+{"S":"keluhan utama, onset, durasi, karakteristik nyeri/gejala, faktor memperberat/memperingan, riwayat penyakit terkait — maks 60 kata","O":"","A":"diagnosis kerja — maks 15 kata","P_terapi":"rekomendasi terapi singkat tanpa jadwal/jaminan — maks 20 kata","P_penunjang":["maks 5 item singkat"],"icd10":[{"code":"X00.0","description":"singkat","type":"primer|sekunder","confidence":"tinggi|sedang|rendah","reason":"singkat"}],"icd_flag":null,"icd_info":null}
 Rules: O="". icd10 maks 3 kode. P_penunjang [] jika tidak ada.`;
 
 async function analyze(){
@@ -340,7 +343,7 @@ async function analyze(){
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'claude-sonnet-4-5',
-        max_tokens:400,
+        max_tokens:500,
         system:SYS,
         messages:[{role:'user',content:`Transkrip anamnesis:\n\n${tx}`}]
       })
@@ -420,8 +423,11 @@ function renderSOAP(r){
 
 function blk(key,inner){
   return `<div class="sb" data-s="${key}">
-    <div class="sb-head"><div class="sb-icon">${key}</div>
-    <div><div class="sb-word">${SM[key].w}</div><div class="sb-desc">${SM[key].d}</div></div></div>
+    <div class="sb-head">
+      <div class="sb-icon">${key}</div>
+      <div style="flex:1"><div class="sb-word">${SM[key].w}</div><div class="sb-desc">${SM[key].d}</div></div>
+      <button class="copy-sec-btn" onclick="copySec('${key}')" title="Salin bagian ini">⎘</button>
+    </div>
     ${inner}</div>`;
 }
 
@@ -488,6 +494,33 @@ function copySOAP(){
   navigator.clipboard.writeText(txt.trim()).then(()=>{
     const b=document.getElementById('copyBtn');b.textContent='✓ Tersalin!';
     setTimeout(()=>b.textContent='⎘ Salin Hasil SOAP',2000);
+  }).catch(()=>showAlert('Gagal menyalin.','warn'));
+}
+
+function copySec(key){
+  if(!lastResult)return;
+  const r=lastResult;
+  let txt='';
+  const label={'S':'Subjective','O':'Objective','A':'Assessment','P':'Plan'};
+  if(key==='S') txt=`[S - Subjective]\n${r.S||'—'}`;
+  else if(key==='O') txt=`[O - Objective]\nTD: ___ mmHg | Nadi: ___ x/mnt | Suhu: ___ °C | RR: ___ x/mnt | SpO2: ___%\n\nPemeriksaan Fisik:\n[Diisi dokter setelah pemeriksaan fisik]`;
+  else if(key==='A') txt=`[A - Assessment]\n${r.A||'—'}`;
+  else if(key==='P'){
+    const pnj=Array.isArray(r.P_penunjang)?r.P_penunjang.filter((_,i)=>checkedItems.has(i)):[];
+    txt=`[P - Plan]\n`;
+    if(r.P_terapi)txt+=`Terapi: ${r.P_terapi}\n`;
+    if(pnj.length>0)txt+=`Pemeriksaan Penunjang: ${pnj.join(', ')}`;
+  }
+  navigator.clipboard.writeText(txt.trim()).then(()=>{
+    // find the button in this section
+    const btns=document.querySelectorAll('.copy-sec-btn');
+    btns.forEach(b=>{
+      if(b.closest('[data-s="'+key+'"]')){
+        const orig=b.textContent;
+        b.textContent='✓';b.classList.add('ok');
+        setTimeout(()=>{b.textContent=orig;b.classList.remove('ok');},1800);
+      }
+    });
   }).catch(()=>showAlert('Gagal menyalin.','warn'));
 }
 
