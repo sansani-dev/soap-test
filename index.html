@@ -3,272 +3,360 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOAP Transcriber</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<title>SOAP Transcriber — RS Sansani</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f5f2eb;--bg2:#ede9e0;--bg3:#e4dfd3;
-  --ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;--ink4:#b8b8b0;
-  --rule:#d0ccc0;--accent:#1a5c3a;--accent-light:#e8f2ec;--accent-mid:#4a9e6e;
-  --red:#8b2020;--red-light:#f5e8e8;--amber:#7a5200;--amber-light:#f5f0e0;
-  --S:#1a4a7a;--O:#5a1a7a;--A:#7a3a00;--P:#1a5c3a;
-  --shadow:0 1px 3px rgba(0,0,0,0.08),0 4px 16px rgba(0,0,0,0.04);
+  --blue:#0a4d7c;--blue-dark:#083f66;--blue-light:#e8f2fa;
+  --teal:#0e9a8e;--teal-light:#e6f7f6;
+  --white:#ffffff;--gray-50:#f8fafc;--gray-100:#f1f5f9;
+  --gray-200:#e2e8f0;--gray-300:#cbd5e1;--gray-400:#94a3b8;
+  --gray-500:#64748b;--gray-700:#334155;--gray-900:#0f172a;
+  --red:#dc2626;--red-light:#fef2f2;
+  --amber:#d97706;--amber-light:#fffbeb;
+  --S:#0a4d7c;--O:#7c3aed;--A:#c2410c;--P:#0e9a8e;
+  --r:8px;
 }
-html,body{min-height:100vh;background:var(--bg);color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.65;}
-body::after{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(0,0,0,0.025) 27px,rgba(0,0,0,0.025) 28px);pointer-events:none;z-index:0;}
-.wrap{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:0 28px 40px;}
-header{padding:28px 0 20px;border-bottom:2px solid var(--ink);margin-bottom:28px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;}
-.brand{display:flex;align-items:baseline;gap:14px;}
-.brand-name{font-family:'Lora',serif;font-size:26px;font-weight:600;font-style:italic;color:var(--ink);letter-spacing:-0.5px;}
-.brand-ver{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);}
-.lang-row{display:flex;gap:5px;flex-wrap:wrap;}
-.lang-chip{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;border:1px solid var(--rule);border-radius:2px;color:var(--ink3);background:var(--bg2);}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-@media(max-width:720px){.grid{grid-template-columns:1fr}}
-.card{background:#fff;border:1px solid var(--rule);border-radius:4px;box-shadow:var(--shadow);overflow:hidden;}
-.card-head{padding:12px 18px;border-bottom:1px solid var(--rule);background:var(--bg2);display:flex;align-items:center;justify-content:space-between;}
-.card-title{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink3);font-weight:500;}
-.card-body{padding:18px;}
-.record-center{display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px 0 24px;}
-.rec-ring{width:80px;height:80px;border-radius:50%;border:2px solid var(--rule);background:var(--bg2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s ease;outline:none;}
-.rec-ring:hover{border-color:var(--accent);box-shadow:0 0 0 6px var(--accent-light)}
-.rec-ring.on{border-color:var(--red);background:var(--red-light);animation:rec-pulse 2s ease-in-out infinite;}
-@keyframes rec-pulse{0%,100%{box-shadow:0 0 0 6px rgba(139,32,32,.1)}50%{box-shadow:0 0 0 12px rgba(139,32,32,.04)}}
-.rec-icon{width:22px;height:22px;border-radius:50%;background:var(--accent);transition:all .2s;}
-.rec-ring.on .rec-icon{background:var(--red);border-radius:4px;width:18px;height:18px;}
-.rec-meta{text-align:center;}
-.rec-label{font-size:11px;color:var(--ink3);letter-spacing:.5px;}
-.rec-label.on{color:var(--red)}
-.rec-timer{font-family:'Lora',serif;font-size:32px;font-weight:400;color:var(--ink2);letter-spacing:3px;margin-top:2px;font-variant-numeric:tabular-nums;}
-.rec-timer.on{color:var(--red)}
-.wave{display:flex;align-items:center;gap:3px;height:32px;opacity:0;transition:opacity .3s;}
-.wave.on{opacity:1}
-.wbar{width:3px;border-radius:2px;background:var(--red);height:4px;transition:height .1s ease;opacity:.7;}
-.transcript{border:1px solid var(--rule);border-radius:3px;background:var(--bg);padding:14px;min-height:180px;max-height:260px;overflow-y:auto;font-size:12px;line-height:1.85;color:var(--ink2);white-space:pre-wrap;word-break:break-word;scrollbar-width:thin;scrollbar-color:var(--rule) transparent;}
-.transcript:empty::before{content:'Transkrip percakapan akan muncul real-time saat perekaman...';color:var(--ink4);font-style:italic;}
-.interim{color:var(--ink4);font-style:italic;}
-.btn-row{display:grid;grid-template-columns:1fr 2fr;gap:10px;margin-top:14px;}
-.btn{padding:11px 16px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;border:1px solid transparent;outline:none;font-weight:500;}
-.btn-ghost{background:transparent;border-color:var(--rule);color:var(--ink3);}
-.btn-ghost:hover{border-color:var(--ink3);color:var(--ink2)}
-.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent);}
-.btn-primary:hover:not(:disabled){background:#144d30;box-shadow:0 2px 8px rgba(26,92,58,.25);}
-.btn-primary:disabled{background:var(--rule);border-color:var(--rule);color:var(--ink4);cursor:not-allowed;}
-.btn-primary.loading{background:var(--ink3);border-color:var(--ink3);animation:btn-blink 1.2s ease-in-out infinite;}
-@keyframes btn-blink{0%,100%{opacity:.6}50%{opacity:1}}
-.alert{border-radius:3px;padding:10px 14px;font-size:11px;line-height:1.5;margin-bottom:14px;display:none;}
-.alert.err{background:var(--red-light);border:1px solid rgba(139,32,32,.2);color:var(--red);display:block}
-.alert.warn{background:var(--amber-light);border:1px solid rgba(122,82,0,.2);color:var(--amber);display:block}
-.alert.ok{background:var(--accent-light);border:1px solid rgba(26,92,58,.2);color:var(--accent);display:block}
-.soap-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:340px;gap:12px;}
-.soap-empty-letters{font-family:'Lora',serif;font-size:52px;font-weight:400;font-style:italic;letter-spacing:8px;color:var(--rule);line-height:1;}
-.soap-empty-hint{font-size:11px;text-align:center;color:var(--ink4);line-height:1.8;}
-.soap-block{padding:18px 20px;border-bottom:1px solid var(--rule);opacity:0;transform:translateY(5px);transition:opacity .35s ease,transform .35s ease;}
-.soap-block:last-child{border-bottom:none}
-.soap-block.show{opacity:1;transform:none}
-.soap-block:nth-child(1){transition-delay:.04s}
-.soap-block:nth-child(2){transition-delay:.12s}
-.soap-block:nth-child(3){transition-delay:.20s}
-.soap-block:nth-child(4){transition-delay:.28s}
-.soap-top{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;}
-.soap-glyph{font-family:'Lora',serif;font-size:36px;font-weight:600;font-style:italic;line-height:1;flex-shrink:0;}
-.soap-word{font-size:13px;font-weight:500;color:var(--ink);font-family:'Lora',serif;}
-.soap-desc{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-top:1px;}
-.soap-block[data-s="S"] .soap-glyph{color:var(--S)} .soap-block[data-s="O"] .soap-glyph{color:var(--O)}
-.soap-block[data-s="A"] .soap-glyph{color:var(--A)} .soap-block[data-s="P"] .soap-glyph{color:var(--P)}
-.soap-block[data-s="S"]{border-left:3px solid var(--S)} .soap-block[data-s="O"]{border-left:3px solid var(--O)}
-.soap-block[data-s="A"]{border-left:3px solid var(--A)} .soap-block[data-s="P"]{border-left:3px solid var(--P)}
-.soap-text{font-size:12px;line-height:1.9;color:var(--ink2);white-space:pre-wrap;}
-.copy-btn{margin-top:16px;width:100%;padding:9px;background:transparent;border:1px solid var(--rule);color:var(--ink3);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .2s;display:none;}
-.copy-btn:hover{border-color:var(--ink3);color:var(--ink2)}
-.copy-btn.visible{display:block}
-.status-bar{margin-top:20px;padding:10px 16px;background:var(--bg2);border:1px solid var(--rule);border-radius:3px;display:flex;align-items:center;gap:10px;font-size:10px;color:var(--ink3);}
-.status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent-mid);flex-shrink:0;}
-.status-dot.warn{background:var(--amber)} .status-dot.err{background:var(--red)}
-.token-est{margin-left:auto;font-size:10px;color:var(--ink4);}
-::-webkit-scrollbar{width:4px} ::-webkit-scrollbar-thumb{background:var(--rule);border-radius:2px;}
+html,body{
+  min-height:100vh;background:var(--gray-50);color:var(--gray-900);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:15px;line-height:1.55;
+}
+
+/* NAV */
+nav{
+  height:64px;background:var(--blue);
+  display:flex;align-items:center;padding:0 28px;gap:14px;
+  position:sticky;top:0;z-index:10;
+  box-shadow:0 2px 6px rgba(0,0,0,0.25);
+}
+.nav-logo{height:36px;width:auto;object-fit:contain;filter:brightness(0) invert(1);}
+.nav-logo-err{
+  height:36px;display:flex;align-items:center;gap:8px;
+  font-size:15px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:-.3px;
+}
+.nav-divider{width:1px;height:24px;background:rgba(255,255,255,.2);}
+.nav-title{font-size:15px;font-weight:500;color:rgba(255,255,255,.92);letter-spacing:-.1px;}
+.nav-sub{font-size:12px;color:rgba(255,255,255,.45);margin-left:auto;}
+
+/* LAYOUT */
+.main{
+  max-width:1160px;margin:0 auto;
+  padding:24px 24px 48px;
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;
+}
+@media(max-width:740px){.main{grid-template-columns:1fr;}}
+
+/* PANEL */
+.panel{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+.panel-head{
+  padding:14px 20px;border-bottom:1px solid var(--gray-200);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--gray-50);
+}
+.panel-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--gray-500);}
+.panel-meta{font-size:12px;color:var(--gray-400);}
+.panel-body{padding:24px;}
+
+/* RECORD */
+.rec-area{display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px 0 24px;}
+.rec-btn{
+  width:88px;height:88px;border-radius:50%;
+  border:2px solid var(--gray-300);background:var(--gray-100);
+  cursor:pointer;outline:none;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .15s,background .15s,box-shadow .15s;
+}
+.rec-btn:hover{border-color:var(--blue);background:var(--blue-light);}
+.rec-btn.on{border-color:var(--red);background:var(--red-light);animation:rp 2s ease-in-out infinite;}
+@keyframes rp{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.14)}50%{box-shadow:0 0 0 14px rgba(220,38,38,0)}}
+.rec-dot{width:26px;height:26px;border-radius:50%;background:var(--blue);transition:all .15s;}
+.rec-btn.on .rec-dot{background:var(--red);border-radius:5px;width:20px;height:20px;}
+
+.rec-txt{text-align:center;}
+.rec-state{font-size:13px;color:var(--gray-500);}
+.rec-state.on{color:var(--red);}
+.rec-time{font-size:36px;font-weight:300;letter-spacing:3px;color:var(--gray-700);font-variant-numeric:tabular-nums;margin-top:4px;}
+.rec-time.on{color:var(--red);}
+
+.wave{display:flex;align-items:center;gap:3px;height:32px;opacity:0;transition:opacity .25s;}
+.wave.on{opacity:1;}
+.wb{width:3px;border-radius:2px;background:var(--red);height:3px;transition:height .09s ease;opacity:.65;}
+
+/* DIVIDER LABEL */
+.dlabel{
+  font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--gray-400);display:flex;align-items:center;gap:8px;margin-bottom:10px;
+}
+.dlabel::before,.dlabel::after{content:'';flex:1;height:1px;background:var(--gray-200);}
+
+/* TRANSCRIPT */
+.tx{
+  border:1px solid var(--gray-200);border-radius:var(--r);
+  background:var(--gray-50);padding:14px 16px;
+  min-height:200px;max-height:280px;overflow-y:auto;
+  font-size:14px;line-height:1.8;color:var(--gray-700);
+  white-space:pre-wrap;word-break:break-word;
+  scrollbar-width:thin;scrollbar-color:var(--gray-300) transparent;
+}
+.tx:empty::before{content:'Transkrip percakapan muncul real-time saat perekaman...';color:var(--gray-400);font-style:italic;}
+.interim{color:var(--gray-400);font-style:italic;}
+
+/* BUTTONS */
+.brow{display:grid;grid-template-columns:100px 1fr;gap:10px;margin-top:14px;}
+.btn{
+  padding:11px 18px;border-radius:var(--r);font-size:14px;font-weight:500;
+  cursor:pointer;border:1px solid transparent;outline:none;transition:all .12s;text-align:center;
+}
+.btn-ghost{background:transparent;border-color:var(--gray-200);color:var(--gray-500);}
+.btn-ghost:hover{background:var(--gray-100);border-color:var(--gray-300);}
+.btn-blue{background:var(--blue);color:#fff;border-color:var(--blue);}
+.btn-blue:hover:not(:disabled){background:var(--blue-dark);}
+.btn-blue:disabled{background:var(--gray-200);border-color:var(--gray-200);color:var(--gray-400);cursor:not-allowed;}
+.btn-blue.loading{background:var(--gray-400);border-color:var(--gray-400);animation:bl 1.1s ease-in-out infinite;}
+@keyframes bl{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* LANG */
+.langs{display:flex;gap:5px;flex-wrap:wrap;margin-top:14px;}
+.lang{font-size:11px;padding:3px 10px;border-radius:99px;background:var(--teal-light);color:var(--teal);border:1px solid rgba(14,154,142,.2);}
+
+/* ALERT */
+.alert{border-radius:var(--r);padding:11px 14px;font-size:13px;line-height:1.5;margin-bottom:12px;display:none;border:1px solid transparent;}
+.alert.err{background:var(--red-light);border-color:rgba(220,38,38,.2);color:var(--red);display:block;}
+.alert.warn{background:var(--amber-light);border-color:rgba(217,119,6,.2);color:var(--amber);display:block;}
+
+/* SOAP EMPTY */
+.sempty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:360px;gap:12px;padding:24px;}
+.sempty-mark{font-size:48px;font-weight:300;letter-spacing:10px;color:var(--gray-200);}
+.sempty-txt{font-size:14px;color:var(--gray-400);text-align:center;line-height:1.9;}
+
+/* SOAP BLOCKS */
+.sb{
+  padding:20px 22px;border-bottom:1px solid var(--gray-200);
+  opacity:0;transform:translateY(5px);
+  transition:opacity .3s ease,transform .3s ease;
+}
+.sb:last-child{border-bottom:none;}
+.sb.show{opacity:1;transform:none;}
+.sb:nth-child(1){transition-delay:.03s}.sb:nth-child(2){transition-delay:.09s}
+.sb:nth-child(3){transition-delay:.15s}.sb:nth-child(4){transition-delay:.21s}
+.sb[data-s="S"]{border-left:3px solid var(--S);}
+.sb[data-s="O"]{border-left:3px solid var(--O);}
+.sb[data-s="A"]{border-left:3px solid var(--A);}
+.sb[data-s="P"]{border-left:3px solid var(--P);}
+.sb-head{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.sb-icon{
+  width:36px;height:36px;border-radius:7px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;
+}
+.sb[data-s="S"] .sb-icon{background:rgba(10,77,124,.07);color:var(--S);}
+.sb[data-s="O"] .sb-icon{background:rgba(124,58,237,.07);color:var(--O);}
+.sb[data-s="A"] .sb-icon{background:rgba(194,65,12,.07);color:var(--A);}
+.sb[data-s="P"] .sb-icon{background:rgba(14,154,142,.07);color:var(--P);}
+.sb-word{font-size:14px;font-weight:600;color:var(--gray-900);}
+.sb-desc{font-size:11.5px;color:var(--gray-400);margin-top:1px;}
+.sb-text{font-size:14px;line-height:1.85;color:var(--gray-700);white-space:pre-wrap;}
+
+/* COPY */
+.copy-btn{
+  display:none;margin:0 22px 20px;
+  padding:10px;border-radius:var(--r);
+  background:transparent;border:1px solid var(--gray-200);
+  color:var(--gray-500);font-size:13px;font-weight:500;
+  cursor:pointer;transition:all .12s;width:calc(100% - 44px);
+}
+.copy-btn:hover{background:var(--gray-100);border-color:var(--gray-300);color:var(--gray-700);}
+.copy-btn.visible{display:block;}
+
+/* STATUS */
+.statusbar{max-width:1160px;margin:0 auto;padding:0 24px 28px;}
+.sb-inner{
+  background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);
+  padding:10px 16px;display:flex;align-items:center;gap:10px;
+  font-size:12px;color:var(--gray-400);
+}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0;}
+.sdot.err{background:var(--red);}.sdot.warn{background:var(--amber);}
+.sright{margin-left:auto;font-size:12px;color:var(--gray-400);}
+
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:2px;}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="brand">
-      <span class="brand-name">SOAP Transcriber</span>
-      <span class="brand-ver">v2.1 · Internal</span>
-    </div>
-    <div class="lang-row">
-      <span class="lang-chip">Indonesia</span>
-      <span class="lang-chip">English</span>
-      <span class="lang-chip">Jawa</span>
-      <span class="lang-chip">Minang</span>
-      <span class="lang-chip">Batak</span>
-    </div>
-  </header>
 
-  <div class="grid">
-    <div class="card">
-      <div class="card-head">
-        <span class="card-title">Rekam Percakapan</span>
-        <span id="recIndicator" style="font-size:10px;color:var(--ink4)">Siap</span>
-      </div>
-      <div class="card-body">
-        <div id="alertBox"></div>
-        <div class="record-center">
-          <button class="rec-ring" id="recBtn" onclick="toggleRecord()">
-            <div class="rec-icon" id="recIcon"></div>
-          </button>
-          <div class="rec-meta">
-            <div class="rec-label" id="recLabel">Tekan untuk mulai merekam</div>
-            <div class="rec-timer" id="recTimer">00:00</div>
-          </div>
-          <div class="wave" id="wave"></div>
-        </div>
-        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;display:flex;align-items:center;gap:8px">
-          Transkrip<span style="flex:1;height:1px;background:var(--rule);display:block"></span>
-        </div>
-        <div class="transcript" id="transcriptBox"></div>
-        <div class="btn-row">
-          <button class="btn btn-ghost" onclick="clearAll()">↺ Reset</button>
-          <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeSOAP()" disabled>Analisis → SOAP</button>
-        </div>
-      </div>
-    </div>
+<nav>
+  <img class="nav-logo" src="https://www.rssansani.co.id/assets/img/logo.webp"
+    onerror="this.style.display='none';document.getElementById('lf').style.display='flex';" alt="RS Sansani">
+  <div class="nav-logo-err" id="lf" style="display:none">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    RS Sansani
+  </div>
+  <div class="nav-divider"></div>
+  <span class="nav-title">SOAP Transcriber</span>
+  <span class="nav-sub">Penggunaan Internal</span>
+</nav>
 
-    <div class="card">
-      <div class="card-head">
-        <span class="card-title">Format SOAP</span>
-        <span id="soapStatus" style="font-size:10px;color:var(--ink4)">Menunggu analisis</span>
+<div class="main">
+
+  <!-- KIRI: REKAM -->
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">Rekam Percakapan</span>
+      <span class="panel-meta" id="recInd">Siap</span>
+    </div>
+    <div class="panel-body">
+      <div id="alertBox"></div>
+      <div class="rec-area">
+        <button class="rec-btn" id="recBtn" onclick="toggleRecord()">
+          <div class="rec-dot" id="recDot"></div>
+        </button>
+        <div class="rec-txt">
+          <div class="rec-state" id="recState">Tekan untuk mulai merekam</div>
+          <div class="rec-time" id="recTime">00:00</div>
+        </div>
+        <div class="wave" id="wave"></div>
       </div>
-      <div class="card-body" style="padding:0">
-        <div id="soapOutput">
-          <div class="soap-empty">
-            <div class="soap-empty-letters">SOAP</div>
-            <div class="soap-empty-hint">Rekam percakapan dokter–pasien<br>lalu tekan <em>Analisis → SOAP</em></div>
-          </div>
-        </div>
-        <div style="padding:0 18px 18px">
-          <button class="copy-btn" id="copyBtn" onclick="copySOAP()">⎘ Salin Hasil SOAP</button>
-        </div>
+
+      <div class="dlabel">Transkrip</div>
+      <div class="tx" id="txBox"></div>
+
+      <div class="brow">
+        <button class="btn btn-ghost" onclick="clearAll()">Reset</button>
+        <button class="btn btn-blue" id="analyzeBtn" onclick="analyzeSOAP()" disabled>Analisis → SOAP</button>
+      </div>
+
+      <div class="langs">
+        <span class="lang">Indonesia</span>
+        <span class="lang">English</span>
+        <span class="lang">Jawa</span>
+        <span class="lang">Minang</span>
+        <span class="lang">Batak</span>
       </div>
     </div>
   </div>
 
-  <div class="status-bar">
-    <div class="status-dot" id="statusDot"></div>
-    <span id="statusMsg">Sistem siap · Web Speech API aktif</span>
-    <span class="token-est" id="tokenEst"></span>
+  <!-- KANAN: SOAP -->
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">Format SOAP</span>
+      <span class="panel-meta" id="soapStatus">Menunggu analisis</span>
+    </div>
+    <div id="soapWrap">
+      <div class="sempty">
+        <div class="sempty-mark">SOAP</div>
+        <div class="sempty-txt">Rekam percakapan dokter–pasien<br>lalu tekan <strong>Analisis → SOAP</strong></div>
+      </div>
+    </div>
+    <button class="copy-btn" id="copyBtn" onclick="copySOAP()">⎘ Salin Hasil SOAP</button>
+  </div>
+
+</div>
+
+<div class="statusbar">
+  <div class="sb-inner">
+    <div class="sdot" id="sdot"></div>
+    <span id="smsg">Sistem siap</span>
+    <span class="sright" id="tokenInfo"></span>
   </div>
 </div>
 
 <script>
-// Tidak ada API key di sini — disimpan aman di Worker (worker.js)
-
 let recognition=null,isRecording=false,timerRef=null,waveRef=null;
-let seconds=0,finalTx='',interimTx='',waveBars=[],lastSOAP=null;
+let seconds=0,finalTx='',interimTx='',wBars=[],lastSOAP=null;
 
-(function init(){
+(function(){
   const wf=document.getElementById('wave');
-  for(let i=0;i<26;i++){const b=document.createElement('div');b.className='wbar';wf.appendChild(b);waveBars.push(b);}
-  if(!window.SpeechRecognition&&!window.webkitSpeechRecognition){
-    showAlert('Browser tidak mendukung Web Speech API. Gunakan Google Chrome atau Microsoft Edge.','err');
-    document.getElementById('recBtn').disabled=true;
-  }
-  setStatus('Sistem siap · Web Speech API aktif','ok');
+  for(let i=0;i<26;i++){const b=document.createElement('div');b.className='wb';wf.appendChild(b);wBars.push(b);}
+  if(!window.SpeechRecognition&&!window.webkitSpeechRecognition)
+    showAlert('Gunakan Google Chrome atau Microsoft Edge untuk fitur perekaman.','err');
 })();
 
-function animWave(){waveBars.forEach(b=>{b.style.height=(Math.random()*26+4)+'px';b.style.opacity=0.4+Math.random()*0.55;});}
+function animW(){wBars.forEach(b=>{b.style.height=(Math.random()*24+4)+'px';b.style.opacity=.45+Math.random()*.5;});}
 
-function buildRecognition(){
+function buildRec(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR)return null;
-  const r=new SR();
-  r.continuous=true;r.interimResults=true;r.lang='id-ID';r.maxAlternatives=1;
+  const r=new SR();r.continuous=true;r.interimResults=true;r.lang='id-ID';
   r.onresult=e=>{
     interimTx='';
     for(let i=e.resultIndex;i<e.results.length;i++){
       const t=e.results[i][0].transcript;
-      if(e.results[i].isFinal)finalTx+=t+' '; else interimTx=t;
+      if(e.results[i].isFinal)finalTx+=t+' ';else interimTx=t;
     }
-    renderTx();updateTokenEst();
+    renderTx();updEst();
     document.getElementById('analyzeBtn').disabled=finalTx.trim().length<15;
   };
   r.onerror=e=>{
-    if(e.error==='not-allowed'){showAlert('Akses mikrofon ditolak. Izinkan akses mikrofon di browser.','err');stopRecord();}
-    else if(e.error==='network'){showAlert('Web Speech API butuh koneksi internet untuk transkripsi.','warn');}
+    if(e.error==='not-allowed'){showAlert('Akses mikrofon ditolak. Izinkan di browser.','err');stopRec();}
+    else if(e.error==='network'){showAlert('Web Speech API memerlukan koneksi internet.','warn');}
   };
   r.onend=()=>{if(isRecording){try{r.start()}catch(e){}}};
   return r;
 }
 
 function renderTx(){
-  const box=document.getElementById('transcriptBox');
-  box.innerHTML='';
-  if(finalTx){const s=document.createElement('span');s.textContent=finalTx;box.appendChild(s);}
-  if(interimTx){const s=document.createElement('span');s.className='interim';s.textContent=interimTx;box.appendChild(s);}
-  box.scrollTop=box.scrollHeight;
+  const b=document.getElementById('txBox');b.innerHTML='';
+  if(finalTx){const s=document.createElement('span');s.textContent=finalTx;b.appendChild(s);}
+  if(interimTx){const s=document.createElement('span');s.className='interim';s.textContent=interimTx;b.appendChild(s);}
+  b.scrollTop=b.scrollHeight;
 }
 
-function updateTokenEst(){
-  const words=finalTx.trim().split(/\s+/).length;
-  const estIn=Math.round(words*1.4)+300,estOut=400;
-  const cost=((estIn/1e6)*3)+((estOut/1e6)*15);
-  document.getElementById('tokenEst').textContent=`~${estIn} token · est. $${cost.toFixed(4)}/call`;
+function updEst(){
+  const w=finalTx.trim().split(/\s+/).length,tI=Math.round(w*1.4)+300,tO=400;
+  document.getElementById('tokenInfo').textContent=`~${tI} token · est. $${(((tI/1e6)*3)+((tO/1e6)*15)).toFixed(4)}/call`;
 }
 
-function toggleRecord(){if(isRecording)stopRecord();else startRecord();}
+function toggleRecord(){if(isRecording)stopRec();else startRec();}
 
-function startRecord(){
-  clearAlert();
-  recognition=buildRecognition();
-  if(!recognition)return;
+function startRec(){
+  clearAlert();recognition=buildRec();if(!recognition)return;
   try{recognition.start();}catch(e){showAlert('Gagal akses mikrofon: '+e.message,'err');return;}
   isRecording=true;seconds=0;
   document.getElementById('recBtn').classList.add('on');
-  document.getElementById('recIcon').style.cssText='background:var(--red);border-radius:4px;width:18px;height:18px';
-  document.getElementById('recLabel').textContent='Merekam...';
-  document.getElementById('recLabel').classList.add('on');
-  document.getElementById('recTimer').classList.add('on');
-  document.getElementById('recIndicator').textContent='● REC';
-  document.getElementById('recIndicator').style.color='var(--red)';
+  document.getElementById('recDot').style.cssText='background:var(--red);border-radius:5px;width:20px;height:20px';
+  document.getElementById('recState').textContent='Merekam...';
+  document.getElementById('recState').classList.add('on');
+  document.getElementById('recTime').classList.add('on');
+  document.getElementById('recInd').textContent='● REC';
+  document.getElementById('recInd').style.color='var(--red)';
   document.getElementById('wave').classList.add('on');
-  setStatus('Merekam percakapan...','ok');
-  timerRef=setInterval(()=>{seconds++;const m=String(Math.floor(seconds/60)).padStart(2,'0'),s=String(seconds%60).padStart(2,'0');document.getElementById('recTimer').textContent=`${m}:${s}`;},1000);
-  waveRef=setInterval(animWave,110);
+  setSt('Merekam percakapan...','');
+  timerRef=setInterval(()=>{seconds++;document.getElementById('recTime').textContent=`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;},1000);
+  waveRef=setInterval(animW,110);
 }
 
-function stopRecord(){
+function stopRec(){
   if(recognition){recognition.onend=null;try{recognition.stop()}catch(e){}recognition=null;}
   isRecording=false;clearInterval(timerRef);clearInterval(waveRef);
   document.getElementById('recBtn').classList.remove('on');
-  document.getElementById('recIcon').style.cssText='background:var(--accent);border-radius:50%;width:22px;height:22px';
-  document.getElementById('recLabel').textContent='Rekaman selesai';
-  document.getElementById('recLabel').classList.remove('on');
-  document.getElementById('recTimer').classList.remove('on');
-  document.getElementById('recIndicator').textContent='Selesai';
-  document.getElementById('recIndicator').style.color='var(--ink4)';
+  document.getElementById('recDot').style.cssText='background:var(--blue);border-radius:50%;width:26px;height:26px';
+  document.getElementById('recState').textContent='Rekaman selesai';
+  document.getElementById('recState').classList.remove('on');
+  document.getElementById('recTime').classList.remove('on');
+  document.getElementById('recInd').textContent='Selesai';
+  document.getElementById('recInd').style.color='var(--gray-400)';
   document.getElementById('wave').classList.remove('on');
-  waveBars.forEach(b=>b.style.height='4px');
+  wBars.forEach(b=>b.style.height='3px');
   const ok=finalTx.trim().length>=15;
   document.getElementById('analyzeBtn').disabled=!ok;
-  setStatus(ok?'Siap dianalisis':'Transkrip terlalu pendek','ok');
+  setSt(ok?'Siap dianalisis':'Transkrip terlalu pendek','');
 }
 
 function clearAll(){
-  if(isRecording)stopRecord();
+  if(isRecording)stopRec();
   finalTx='';interimTx='';lastSOAP=null;seconds=0;
-  document.getElementById('transcriptBox').innerHTML='';
-  document.getElementById('recTimer').textContent='00:00';
-  document.getElementById('recLabel').textContent='Tekan untuk mulai merekam';
-  document.getElementById('recIndicator').textContent='Siap';
-  document.getElementById('recIndicator').style.color='var(--ink4)';
+  document.getElementById('txBox').innerHTML='';
+  document.getElementById('recTime').textContent='00:00';
+  document.getElementById('recState').textContent='Tekan untuk mulai merekam';
+  document.getElementById('recInd').textContent='Siap';
+  document.getElementById('recInd').style.color='var(--gray-400)';
   document.getElementById('analyzeBtn').disabled=true;
-  document.getElementById('tokenEst').textContent='';
+  document.getElementById('tokenInfo').textContent='';
   document.getElementById('soapStatus').textContent='Menunggu analisis';
   document.getElementById('copyBtn').classList.remove('visible');
-  document.getElementById('soapOutput').innerHTML=`<div class="soap-empty"><div class="soap-empty-letters">SOAP</div><div class="soap-empty-hint">Rekam percakapan dokter–pasien<br>lalu tekan <em>Analisis → SOAP</em></div></div>`;
-  clearAlert();setStatus('Sistem siap · Web Speech API aktif','ok');
+  document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-mark">SOAP</div><div class="sempty-txt">Rekam percakapan dokter–pasien<br>lalu tekan <strong>Analisis → SOAP</strong></div></div>`;
+  clearAlert();setSt('Sistem siap','');
 }
 
 async function analyzeSOAP(){
@@ -277,80 +365,67 @@ async function analyzeSOAP(){
   const btn=document.getElementById('analyzeBtn');
   btn.disabled=true;btn.classList.add('loading');btn.textContent='Menganalisis...';
   document.getElementById('soapStatus').textContent='Memproses...';
-  setStatus('Mengirim ke Claude untuk analisis...','ok');
-  document.getElementById('soapOutput').innerHTML=`<div class="soap-empty"><div class="soap-empty-letters">SOAP</div><div class="soap-empty-hint">Sedang menganalisis transkrip...</div></div>`;
+  setSt('Mengirim ke Claude...','');
+  document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-mark" style="opacity:.25">SOAP</div><div class="sempty-txt">Sedang menganalisis transkrip...</div></div>`;
 
-  const SYSTEM=`Kamu adalah asisten medis yang mengkonversi transkrip percakapan dokter-pasien menjadi format SOAP note.
-Transkrip mungkin dalam bahasa Indonesia, Inggris, atau campuran bahasa daerah Indonesia (Minang, Jawa, Batak). Transkripsi otomatis sering tidak sempurna — interpretasikan berdasarkan konteks medis.
-Kembalikan HANYA objek JSON berikut, tanpa teks lain, tanpa markdown fence:
-{"S":"...","O":"...","A":"...","P":"..."}
-- S (Subjective): Keluhan utama, onset, durasi, karakteristik, riwayat penyakit sekarang.
-- O (Objective): Tanda vital, pemeriksaan fisik, lab. Jika tidak ada, tulis "Tidak disebutkan."
-- A (Assessment): Diagnosis kerja atau kesan klinis dokter.
-- P (Plan): Resep, dosis, durasi, edukasi, rujukan, follow-up.
-Gunakan Bahasa Indonesia baku dan terminologi medis yang tepat.`;
+  const SYS=`Kamu adalah asisten medis RS Sansani Pekanbaru yang mengkonversi transkrip percakapan dokter-pasien menjadi SOAP note.
+Transkrip mungkin dalam bahasa Indonesia, Inggris, atau campuran bahasa daerah (Minang, Jawa, Batak). Transkripsi otomatis sering tidak sempurna — interpretasikan dari konteks medis.
+Kembalikan HANYA JSON ini tanpa teks lain: {"S":"...","O":"...","A":"...","P":"..."}
+- S: Keluhan utama, onset, durasi, riwayat penyakit sekarang.
+- O: Tanda vital, pemeriksaan fisik, lab. Jika tidak ada tulis "Tidak disebutkan."
+- A: Diagnosis kerja atau kesan klinis.
+- P: Resep, dosis, durasi, edukasi, rujukan, follow-up.
+Gunakan Bahasa Indonesia baku dan terminologi medis tepat.`;
 
   try{
-    // Panggil Worker proxy — bukan Anthropic langsung
-    const resp=await fetch('/api/analyze',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system:SYSTEM,
-        messages:[{role:'user',content:`Transkrip:\n\n${tx}`}]
-      })
-    });
-    if(!resp.ok){const err=await resp.json().catch(()=>({}));throw new Error(err.error?.message||`HTTP ${resp.status}`);}
+    const resp=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1000,system:SYS,messages:[{role:'user',content:`Transkrip:\n\n${tx}`}]})});
+    if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${resp.status}`);}
     const data=await resp.json();
     const raw=data.content.find(b=>b.type==='text')?.text||'';
     let soap;
     try{soap=JSON.parse(raw.replace(/```json|```/g,'').trim());}
-    catch(e){throw new Error('Format respons tidak valid — coba rekam ulang.');}
+    catch(e){throw new Error('Format respons tidak valid.');}
     lastSOAP=soap;renderSOAP(soap);
     const u=data.usage;
-    if(u){const cost=((u.input_tokens/1e6)*3)+((u.output_tokens/1e6)*15);document.getElementById('tokenEst').textContent=`${u.input_tokens} in · ${u.output_tokens} out · $${cost.toFixed(4)}`;}
-    document.getElementById('soapStatus').textContent='Selesai';
-    setStatus('Analisis selesai','ok');
+    if(u)document.getElementById('tokenInfo').textContent=`${u.input_tokens} in · ${u.output_tokens} out · $${(((u.input_tokens/1e6)*3)+((u.output_tokens/1e6)*15)).toFixed(4)}`;
+    document.getElementById('soapStatus').textContent='Selesai';setSt('Analisis selesai','');
   }catch(err){
     showAlert('Gagal: '+err.message,'err');
-    document.getElementById('soapOutput').innerHTML=`<div class="soap-empty"><div class="soap-empty-letters" style="color:var(--red);opacity:.3">!</div><div class="soap-empty-hint">Analisis gagal.<br>${err.message}</div></div>`;
-    document.getElementById('soapStatus').textContent='Error';
-    setStatus('Analisis gagal','err');
-  }finally{
-    btn.disabled=false;btn.classList.remove('loading');btn.textContent='Analisis → SOAP';
-  }
+    document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-txt">Analisis gagal.<br><small>${err.message}</small></div></div>`;
+    document.getElementById('soapStatus').textContent='Error';setSt('Gagal','err');
+  }finally{btn.disabled=false;btn.classList.remove('loading');btn.textContent='Analisis → SOAP';}
 }
 
-const SOAP_META={S:{word:'Subjective',desc:'Keluhan & Riwayat Pasien'},O:{word:'Objective',desc:'Temuan Objektif'},A:{word:'Assessment',desc:'Diagnosis / Kesan Klinis'},P:{word:'Plan',desc:'Rencana Tatalaksana'}};
+const META={S:{w:'Subjective',d:'Keluhan & Riwayat Pasien'},O:{w:'Objective',d:'Temuan Objektif'},A:{w:'Assessment',d:'Diagnosis / Kesan Klinis'},P:{w:'Plan',d:'Rencana Tatalaksana'}};
 
 function renderSOAP(soap){
   const html=['S','O','A','P'].map(k=>`
-    <div class="soap-block" data-s="${k}">
-      <div class="soap-top"><span class="soap-glyph">${k}</span>
-        <div><div class="soap-word">${SOAP_META[k].word}</div><div class="soap-desc">${SOAP_META[k].desc}</div></div>
+    <div class="sb" data-s="${k}">
+      <div class="sb-head">
+        <div class="sb-icon">${k}</div>
+        <div><div class="sb-word">${META[k].w}</div><div class="sb-desc">${META[k].d}</div></div>
       </div>
-      <div class="soap-text">${esc(soap[k]||'—')}</div>
-    </div>`).join('<div style="height:1px;background:var(--rule);margin:0 18px"></div>');
-  document.getElementById('soapOutput').innerHTML=html;
-  requestAnimationFrame(()=>{document.querySelectorAll('.soap-block').forEach(el=>{requestAnimationFrame(()=>el.classList.add('show'));});});
+      <div class="sb-text">${esc(soap[k]||'—')}</div>
+    </div>`).join('');
+  document.getElementById('soapWrap').innerHTML=html;
+  requestAnimationFrame(()=>{document.querySelectorAll('.sb').forEach(el=>{requestAnimationFrame(()=>el.classList.add('show'));});});
   document.getElementById('copyBtn').classList.add('visible');
 }
 
 function copySOAP(){
   if(!lastSOAP)return;
-  const txt=['S','O','A','P'].map(k=>`[${k} - ${SOAP_META[k].word}]\n${lastSOAP[k]||'—'}`).join('\n\n');
+  const txt=['S','O','A','P'].map(k=>`[${k} - ${META[k].w}]\n${lastSOAP[k]||'—'}`).join('\n\n');
   navigator.clipboard.writeText(txt).then(()=>{
-    const btn=document.getElementById('copyBtn');btn.textContent='✓ Tersalin!';
-    setTimeout(()=>btn.textContent='⎘ Salin Hasil SOAP',2000);
-  }).catch(()=>showAlert('Gagal menyalin — coba select manual.','warn'));
+    const b=document.getElementById('copyBtn');b.textContent='✓ Tersalin!';
+    setTimeout(()=>b.textContent='⎘ Salin Hasil SOAP',2000);
+  }).catch(()=>showAlert('Gagal menyalin.','warn'));
 }
 
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function showAlert(msg,type){document.getElementById('alertBox').innerHTML=`<div class="alert ${type}">${msg}</div>`;}
+function showAlert(m,t){document.getElementById('alertBox').innerHTML=`<div class="alert ${t}">${m}</div>`;}
 function clearAlert(){document.getElementById('alertBox').innerHTML='';}
-function setStatus(msg,type){document.getElementById('statusMsg').textContent=msg;const dot=document.getElementById('statusDot');dot.className='status-dot'+(type==='err'?' err':type==='warn'?' warn':'');}
+function setSt(m,t){document.getElementById('smsg').textContent=m;const d=document.getElementById('sdot');d.className='sdot'+(t==='err'?' err':t==='warn'?' warn':'');}
 </script>
 </body>
 </html>
