@@ -22,43 +22,26 @@ html,body{
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
   font-size:15px;line-height:1.55;
 }
-
-/* NAV */
-nav{
-  height:64px;background:var(--blue);
-  display:flex;align-items:center;padding:0 28px;gap:14px;
-  position:sticky;top:0;z-index:10;
-  box-shadow:0 2px 6px rgba(0,0,0,0.25);
-}
+nav{height:64px;background:var(--blue);display:flex;align-items:center;padding:0 28px;gap:14px;position:sticky;top:0;z-index:10;box-shadow:0 2px 6px rgba(0,0,0,0.25);}
 .nav-logo{height:36px;width:auto;object-fit:contain;filter:brightness(0) invert(1);}
-.nav-logo-err{height:36px;display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:-.3px;}
+.nav-logo-err{height:36px;display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:rgba(255,255,255,.9);}
 .nav-divider{width:1px;height:24px;background:rgba(255,255,255,.2);}
 .nav-title{font-size:15px;font-weight:500;color:rgba(255,255,255,.92);}
 .nav-sub{font-size:12px;color:rgba(255,255,255,.45);margin-left:auto;}
 
-/* LAYOUT */
-.main{max-width:1280px;margin:0 auto;padding:24px 24px 48px;display:grid;grid-template-columns:1fr 1.4fr;gap:20px;}
-@media(max-width:800px){.main{grid-template-columns:1fr;}}
+.main{max-width:1280px;margin:0 auto;padding:24px 24px 48px;display:grid;grid-template-columns:1fr 1.5fr;gap:20px;}
+@media(max-width:820px){.main{grid-template-columns:1fr;}}
 
-/* PANEL */
 .panel{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);}
-.panel-head{padding:14px 20px;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;justify-content:space-between;background:var(--gray-50);}
-.panel-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--gray-500);}
+.panel-head{padding:13px 20px;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;justify-content:space-between;background:var(--gray-50);}
+.panel-title{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--gray-500);}
 .panel-meta{font-size:12px;color:var(--gray-400);}
-.panel-body{padding:24px;}
-
-/* RIGHT COLUMN: stacked panels */
+.panel-body{padding:22px;}
 .right-col{display:flex;flex-direction:column;gap:20px;}
 
 /* RECORD */
-.rec-area{display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px 0 24px;}
-.rec-btn{
-  width:88px;height:88px;border-radius:50%;
-  border:2px solid var(--gray-300);background:var(--gray-100);
-  cursor:pointer;outline:none;
-  display:flex;align-items:center;justify-content:center;
-  transition:border-color .15s,background .15s,box-shadow .15s;
-}
+.rec-area{display:flex;flex-direction:column;align-items:center;gap:14px;padding:16px 0 20px;}
+.rec-btn{width:88px;height:88px;border-radius:50%;border:2px solid var(--gray-300);background:var(--gray-100);cursor:pointer;outline:none;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .rec-btn:hover{border-color:var(--blue);background:var(--blue-light);}
 .rec-btn.on{border-color:var(--red);background:var(--red-light);animation:rp 2s ease-in-out infinite;}
 @keyframes rp{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.14)}50%{box-shadow:0 0 0 14px rgba(220,38,38,0)}}
@@ -69,18 +52,16 @@ nav{
 .rec-state.on{color:var(--red);}
 .rec-time{font-size:36px;font-weight:300;letter-spacing:3px;color:var(--gray-700);font-variant-numeric:tabular-nums;margin-top:4px;}
 .rec-time.on{color:var(--red);}
-.wave{display:flex;align-items:center;gap:3px;height:32px;opacity:0;transition:opacity .25s;}
+.wave{display:flex;align-items:center;gap:3px;height:28px;opacity:0;transition:opacity .25s;}
 .wave.on{opacity:1;}
 .wb{width:3px;border-radius:2px;background:var(--red);height:3px;transition:height .09s ease;opacity:.65;}
 
-/* COUNTER */
 .tx-counter{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border:1px solid var(--gray-200);border-radius:var(--r);background:var(--gray-50);}
 .tx-counter-label{font-size:13px;color:var(--gray-500);}
 .tx-counter-val{font-size:13px;font-weight:600;color:var(--blue);}
 
-/* BUTTONS */
-.brow{display:grid;grid-template-columns:100px 1fr;gap:10px;margin-top:14px;}
-.btn{padding:11px 18px;border-radius:var(--r);font-size:14px;font-weight:500;cursor:pointer;border:1px solid transparent;outline:none;transition:all .12s;text-align:center;}
+.brow{display:grid;grid-template-columns:90px 1fr;gap:10px;margin-top:12px;}
+.btn{padding:10px 16px;border-radius:var(--r);font-size:13.5px;font-weight:500;cursor:pointer;border:1px solid transparent;outline:none;transition:all .12s;text-align:center;}
 .btn-ghost{background:transparent;border-color:var(--gray-200);color:var(--gray-500);}
 .btn-ghost:hover{background:var(--gray-100);border-color:var(--gray-300);}
 .btn-blue{background:var(--blue);color:#fff;border-color:var(--blue);}
@@ -89,117 +70,92 @@ nav{
 .btn-blue.loading{background:var(--gray-400);border-color:var(--gray-400);animation:bl 1.1s ease-in-out infinite;}
 @keyframes bl{0%,100%{opacity:.5}50%{opacity:1}}
 
-/* LANG */
-.langs{display:flex;gap:5px;flex-wrap:wrap;margin-top:14px;}
+.langs{display:flex;gap:5px;flex-wrap:wrap;margin-top:12px;}
 .lang{font-size:11px;padding:3px 10px;border-radius:99px;background:var(--teal-light);color:var(--teal);border:1px solid rgba(14,154,142,.2);}
 
-/* ALERT */
-.alert{border-radius:var(--r);padding:11px 14px;font-size:13px;line-height:1.5;margin-bottom:12px;display:none;border:1px solid transparent;}
+.alert{border-radius:var(--r);padding:10px 13px;font-size:13px;line-height:1.5;margin-bottom:10px;display:none;border:1px solid transparent;}
 .alert.err{background:var(--red-light);border-color:rgba(220,38,38,.2);color:var(--red);display:block;}
 .alert.warn{background:var(--amber-light);border-color:rgba(217,119,6,.2);color:var(--amber);display:block;}
 
-/* INFO BOX */
-.infobox{border-radius:var(--r);padding:11px 14px;font-size:12.5px;line-height:1.6;background:var(--teal-light);border:1px solid rgba(14,154,142,.2);color:#0c7a70;margin-top:14px;}
+/* SOAP */
+.sempty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;gap:10px;padding:20px;}
+.sempty-mark{font-size:38px;font-weight:300;letter-spacing:10px;color:var(--gray-200);}
+.sempty-txt{font-size:13.5px;color:var(--gray-400);text-align:center;line-height:1.9;}
 
-/* SOAP EMPTY */
-.sempty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px;gap:12px;padding:24px;}
-.sempty-mark{font-size:40px;font-weight:300;letter-spacing:10px;color:var(--gray-200);}
-.sempty-txt{font-size:14px;color:var(--gray-400);text-align:center;line-height:1.9;}
-
-/* SOAP BLOCKS */
-.sb{padding:18px 20px;border-bottom:1px solid var(--gray-200);opacity:0;transform:translateY(5px);transition:opacity .3s ease,transform .3s ease;}
+.sb{padding:16px 20px;border-bottom:1px solid var(--gray-200);opacity:0;transform:translateY(4px);transition:opacity .28s ease,transform .28s ease;}
 .sb:last-child{border-bottom:none;}
 .sb.show{opacity:1;transform:none;}
-.sb:nth-child(1){transition-delay:.03s}.sb:nth-child(2){transition-delay:.09s}
-.sb:nth-child(3){transition-delay:.15s}.sb:nth-child(4){transition-delay:.21s}
+.sb:nth-child(1){transition-delay:.03s}.sb:nth-child(2){transition-delay:.08s}
+.sb:nth-child(3){transition-delay:.13s}.sb:nth-child(4){transition-delay:.18s}
 .sb[data-s="S"]{border-left:3px solid var(--S);}
 .sb[data-s="O"]{border-left:3px solid var(--O);}
 .sb[data-s="A"]{border-left:3px solid var(--A);}
 .sb[data-s="P"]{border-left:3px solid var(--P);}
-.sb-head{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
-.sb-icon{width:34px;height:34px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;}
+.sb-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.sb-icon{width:32px;height:32px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;}
 .sb[data-s="S"] .sb-icon{background:rgba(10,77,124,.07);color:var(--S);}
 .sb[data-s="O"] .sb-icon{background:rgba(124,58,237,.07);color:var(--O);}
 .sb[data-s="A"] .sb-icon{background:rgba(194,65,12,.07);color:var(--A);}
 .sb[data-s="P"] .sb-icon{background:rgba(14,154,142,.07);color:var(--P);}
-.sb-word{font-size:14px;font-weight:600;color:var(--gray-900);}
+.sb-word{font-size:13.5px;font-weight:600;color:var(--gray-900);}
 .sb-desc{font-size:11px;color:var(--gray-400);margin-top:1px;}
-.sb-text{font-size:13.5px;line-height:1.85;color:var(--gray-700);white-space:pre-wrap;}
+.sb-text{font-size:13px;line-height:1.85;color:var(--gray-700);white-space:pre-wrap;}
+
+/* PLAN special layout */
+.plan-body{}
+.plan-section-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--gray-400);margin:12px 0 6px;}
+.plan-section-label:first-child{margin-top:0;}
+.plan-therapy{font-size:13px;line-height:1.85;color:var(--gray-700);white-space:pre-wrap;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;}
+.plan-note{font-size:11.5px;color:var(--gray-400);margin-top:5px;font-style:italic;}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:5px;}
+.check-item{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:6px;border:1px solid var(--gray-200);background:var(--gray-50);cursor:pointer;transition:background .1s;}
+.check-item:hover{background:var(--blue-light);}
+.check-item.checked{background:#eff6ff;border-color:#bfdbfe;}
+.check-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--blue);cursor:pointer;flex-shrink:0;}
+.check-label{font-size:13px;color:var(--gray-700);flex:1;}
+.check-item.checked .check-label{color:var(--blue);font-weight:500;}
+
+/* O placeholder */
+.o-placeholder{font-size:13px;color:var(--gray-400);background:var(--gray-50);border:1px dashed var(--gray-300);border-radius:6px;padding:12px;line-height:2;}
 
 /* COPY */
-.copy-btn{display:none;margin:0 20px 18px;padding:10px;border-radius:var(--r);background:transparent;border:1px solid var(--gray-200);color:var(--gray-500);font-size:13px;font-weight:500;cursor:pointer;transition:all .12s;width:calc(100% - 40px);}
+.copy-btn{display:none;margin:0 20px 16px;padding:9px;border-radius:var(--r);background:transparent;border:1px solid var(--gray-200);color:var(--gray-500);font-size:13px;font-weight:500;cursor:pointer;transition:all .12s;width:calc(100% - 40px);}
 .copy-btn:hover{background:var(--gray-100);border-color:var(--gray-300);color:var(--gray-700);}
 .copy-btn.visible{display:block;}
 
-/* ── ICD PANEL ── */
-.icd-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:160px;gap:10px;padding:20px;}
-.icd-empty-mark{font-size:28px;font-weight:300;letter-spacing:6px;color:var(--gray-200);}
+/* ICD PANEL */
+.icd-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:140px;gap:8px;padding:16px;}
+.icd-empty-mark{font-size:26px;font-weight:300;letter-spacing:6px;color:var(--gray-200);}
 .icd-empty-txt{font-size:13px;color:var(--gray-400);text-align:center;line-height:1.8;}
-
-.icd-section{padding:14px 18px;border-bottom:1px solid var(--gray-200);}
+.icd-section{padding:12px 18px;border-bottom:1px solid var(--gray-200);}
 .icd-section:last-child{border-bottom:none;}
-.icd-section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--gray-400);margin-bottom:10px;}
-
-.icd-row{
-  display:grid;grid-template-columns:110px 1fr auto;
-  align-items:start;gap:10px;
-  padding:10px 12px;border-radius:6px;
-  border:1px solid var(--gray-200);
-  background:var(--gray-50);
-  margin-bottom:8px;
-  opacity:0;transform:translateY(4px);
-  transition:opacity .3s ease,transform .3s ease;
-}
+.icd-section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--gray-400);margin-bottom:8px;}
+.icd-row{display:grid;grid-template-columns:110px 1fr auto;align-items:start;gap:10px;padding:9px 11px;border-radius:6px;border:1px solid var(--gray-200);background:var(--gray-50);margin-bottom:7px;opacity:0;transform:translateY(4px);transition:opacity .28s ease,transform .28s ease;}
 .icd-row:last-child{margin-bottom:0;}
 .icd-row.show{opacity:1;transform:none;}
-.icd-row.primary{border-color:#bfdbfe;background:#eff6ff;}
-.icd-row.secondary{border-color:var(--gray-200);background:var(--gray-50);}
-
-.icd-code{
-  font-size:14px;font-weight:700;color:var(--blue);
-  font-family:'SF Mono',Monaco,'Cascadia Code',monospace;
-  letter-spacing:.3px;padding-top:1px;
-}
-.icd-row.secondary .icd-code{color:var(--gray-500);}
-.icd-desc{font-size:13px;color:var(--gray-700);line-height:1.5;}
-.icd-reason{font-size:11.5px;color:var(--gray-400);margin-top:3px;line-height:1.4;}
-
-.conf-badge{
-  font-size:10px;font-weight:600;padding:3px 8px;border-radius:99px;
-  white-space:nowrap;flex-shrink:0;
-}
+.icd-row.primer{border-color:#bfdbfe;background:#eff6ff;}
+.icd-code{font-size:13.5px;font-weight:700;color:var(--blue);font-family:'SF Mono',Monaco,monospace;letter-spacing:.3px;}
+.icd-row.sekunder .icd-code{color:var(--gray-500);}
+.icd-desc{font-size:13px;color:var(--gray-700);line-height:1.45;}
+.icd-reason{font-size:11px;color:var(--gray-400);margin-top:3px;}
+.conf-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap;flex-shrink:0;}
 .conf-high{background:#dcfce7;color:#16a34a;}
 .conf-med{background:#fef9c3;color:#a16207;}
 .conf-low{background:#fee2e2;color:#dc2626;}
-
-/* ICD warning box */
-.icd-warn{
-  margin:12px 18px;padding:10px 13px;
-  background:var(--amber-light);border:1px solid rgba(217,119,6,.2);
-  border-radius:6px;font-size:12px;color:var(--amber);line-height:1.6;
-}
-.icd-warn.hidden{display:none;}
-
-/* FLAG */
-.icd-flag{
-  margin:0 18px 14px;padding:9px 13px;
-  background:#fef2f2;border:1px solid rgba(220,38,38,.15);
-  border-radius:6px;font-size:12px;color:var(--red);line-height:1.6;
-}
-.icd-flag.hidden{display:none;}
-
-/* copy icd btn */
-.copy-icd-btn{display:none;margin:0 18px 16px;padding:9px;border-radius:var(--r);background:transparent;border:1px solid var(--gray-200);color:var(--gray-500);font-size:12.5px;font-weight:500;cursor:pointer;transition:all .12s;width:calc(100% - 36px);}
+.icd-note{font-size:12.5px;color:var(--gray-400);font-style:italic;padding:4px 0;}
+.icd-flag{margin:8px 18px 12px;padding:9px 12px;background:var(--amber-light);border:1px solid rgba(217,119,6,.2);border-radius:6px;font-size:12px;color:var(--amber);line-height:1.6;display:none;}
+.icd-flag.visible{display:block;}
+.copy-icd-btn{display:none;margin:0 18px 14px;padding:9px;border-radius:var(--r);background:transparent;border:1px solid var(--gray-200);color:var(--gray-500);font-size:12.5px;font-weight:500;cursor:pointer;transition:all .12s;width:calc(100% - 36px);}
 .copy-icd-btn:hover{background:var(--gray-100);color:var(--gray-700);}
 .copy-icd-btn.visible{display:block;}
 
-/* STATUS */
 .statusbar{max-width:1280px;margin:0 auto;padding:0 24px 28px;}
-.sb-inner{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--gray-400);}
+.sb-inner{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);padding:9px 16px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--gray-400);}
 .sdot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0;}
 .sdot.err{background:var(--red);}.sdot.warn{background:var(--amber);}
-.sright{margin-left:auto;font-size:12px;color:var(--gray-400);}
-
+.sright{margin-left:auto;font-size:12px;}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:2px;}
 </style>
 </head>
@@ -218,8 +174,7 @@ nav{
 </nav>
 
 <div class="main">
-
-  <!-- KIRI: REKAM -->
+  <!-- KIRI -->
   <div class="panel">
     <div class="panel-head">
       <span class="panel-title">Rekam Percakapan</span>
@@ -237,17 +192,14 @@ nav{
         </div>
         <div class="wave" id="wave"></div>
       </div>
-
       <div class="tx-counter">
         <span class="tx-counter-label">Kata terekam</span>
         <span class="tx-counter-val" id="wordCount">0 kata</span>
       </div>
-
       <div class="brow">
         <button class="btn btn-ghost" onclick="clearAll()">Reset</button>
         <button class="btn btn-blue" id="analyzeBtn" onclick="analyzeAll()" disabled>Analisis → SOAP + ICD</button>
       </div>
-
       <div class="langs">
         <span class="lang">Indonesia</span>
         <span class="lang">English</span>
@@ -255,15 +207,13 @@ nav{
         <span class="lang">Minang</span>
         <span class="lang">Batak</span>
       </div>
-
-
     </div>
   </div>
 
-  <!-- KANAN: SOAP + ICD -->
+  <!-- KANAN -->
   <div class="right-col">
 
-    <!-- SOAP PANEL -->
+    <!-- SOAP -->
     <div class="panel">
       <div class="panel-head">
         <span class="panel-title">Format SOAP</span>
@@ -278,21 +228,20 @@ nav{
       <button class="copy-btn" id="copyBtn" onclick="copySOAP()">⎘ Salin Hasil SOAP</button>
     </div>
 
-    <!-- ICD PANEL -->
+    <!-- ICD -->
     <div class="panel">
       <div class="panel-head">
-        <span class="panel-title">Rekomendasi Koding ICD</span>
+        <span class="panel-title">Rekomendasi Koding ICD-10</span>
         <span class="panel-meta" id="icdStatus">Menunggu analisis</span>
       </div>
       <div id="icdWrap">
         <div class="icd-empty">
-          <div class="icd-empty-mark">ICD</div>
-          <div class="icd-empty-txt">Kode ICD-10 dan ICD-9-CM<br>akan muncul setelah analisis</div>
+          <div class="icd-empty-mark">ICD-10</div>
+          <div class="icd-empty-txt">Rekomendasi kode akan muncul setelah analisis.<br>Wajib diverifikasi koder sebelum klaim.</div>
         </div>
       </div>
-      <div class="icd-warn hidden" id="icdWarn"></div>
-      <div class="icd-flag hidden" id="icdFlag"></div>
-      <button class="copy-icd-btn" id="copyIcdBtn" onclick="copyICD()">⎘ Salin Rekomendasi Koding</button>
+      <div class="icd-flag" id="icdFlag"></div>
+      <button class="copy-icd-btn" id="copyIcdBtn" onclick="copyICD()">⎘ Salin Rekomendasi ICD-10</button>
     </div>
 
   </div>
@@ -308,7 +257,7 @@ nav{
 
 <script>
 let recognition=null,isRecording=false,timerRef=null,waveRef=null;
-let seconds=0,finalTx='',interimTx='',wBars=[],lastSOAP=null,lastICD=null;
+let seconds=0,finalTx='',interimTx='',wBars=[],lastSOAP=null,lastICD=null,checkedItems=new Set();
 
 (function(){
   const wf=document.getElementById('wave');
@@ -343,7 +292,7 @@ function buildRec(){
 function updCount(){
   const w=finalTx.trim()===''?0:finalTx.trim().split(/\s+/).length;
   document.getElementById('wordCount').textContent=w+' kata';
-  const tI=Math.round(w*1.4)+600,tO=600;
+  const tI=Math.round(w*1.4)+700,tO=700;
   document.getElementById('tokenInfo').textContent=`~${tI} token · est. $${(((tI/1e6)*3)+((tO/1e6)*15)).toFixed(4)}/call`;
 }
 
@@ -385,7 +334,7 @@ function stopRec(){
 
 function clearAll(){
   if(isRecording)stopRec();
-  finalTx='';interimTx='';lastSOAP=null;lastICD=null;seconds=0;
+  finalTx='';interimTx='';lastSOAP=null;lastICD=null;checkedItems=new Set();seconds=0;
   document.getElementById('recTime').textContent='00:00';
   document.getElementById('recState').textContent='Tekan untuk mulai merekam';
   document.getElementById('recInd').textContent='Siap';
@@ -397,81 +346,60 @@ function clearAll(){
   document.getElementById('icdStatus').textContent='Menunggu analisis';
   document.getElementById('copyBtn').classList.remove('visible');
   document.getElementById('copyIcdBtn').classList.remove('visible');
-  document.getElementById('icdWarn').classList.add('hidden');
-  document.getElementById('icdFlag').classList.add('hidden');
+  document.getElementById('icdFlag').classList.remove('visible');
   document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-mark">SOAP</div><div class="sempty-txt">Rekam percakapan dokter–pasien<br>lalu tekan <strong>Analisis → SOAP + ICD</strong></div></div>`;
-  document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-mark">ICD</div><div class="icd-empty-txt">Kode ICD-10 dan ICD-9-CM<br>akan muncul setelah analisis</div></div>`;
+  document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-mark">ICD-10</div><div class="icd-empty-txt">Rekomendasi kode akan muncul setelah analisis.<br>Wajib diverifikasi koder sebelum klaim.</div></div>`;
   clearAlert();setSt('Sistem siap','');
 }
 
 // ── SYSTEM PROMPTS ────────────────────────────────────────────
 
-const SOAP_SYS=`Kamu adalah asisten medis RS Sansani Pekanbaru yang mengekstrak informasi klinis dari transkrip percakapan dokter-pasien dan mengkonversinya menjadi SOAP note.
+const SOAP_SYS=`Kamu adalah asisten medis RS Sansani Pekanbaru yang mengekstrak informasi klinis dari transkrip anamnesis dokter-pasien dan mengkonversinya menjadi SOAP note.
 
-PENTING — Filter ketat sebelum mengekstrak:
-Abaikan sepenuhnya semua percakapan yang tidak berhubungan dengan kondisi medis pasien, termasuk:
-- Pembahasan administrasi, BPJS, asuransi, biaya, pembayaran
-- Komentar tentang faskes lain, dokter lain, atau institusi kesehatan lain
-- Keluhan operasional, prosedur klaim, atau kebijakan rumah sakit
-- Percakapan basa-basi atau topik di luar kondisi pasien
+Filter ketat — abaikan sepenuhnya:
+- Pembahasan BPJS, asuransi, biaya, administrasi
+- Komentar tentang faskes lain, dokter lain, institusi lain
+- Percakapan non-klinis apapun
 
-Hanya ekstrak informasi klinis murni.
-
-Transkrip mungkin dalam bahasa Indonesia, Inggris, atau campuran bahasa daerah (Minang, Jawa, Batak). Transkripsi otomatis sering tidak sempurna — interpretasikan dari konteks medis.
+Transkrip mungkin dalam bahasa Indonesia, Inggris, atau campuran bahasa daerah (Minang, Jawa, Batak).
 
 Kembalikan HANYA JSON ini tanpa teks lain:
-{"S":"...","O":"...","A":"...","P":"..."}
+{"S":"...","O":"...","A":"...","P_terapi":"...","P_penunjang":["...", "..."]}
 
-- S: Keluhan utama, onset, durasi, karakteristik, riwayat penyakit sekarang (dari sudut pandang pasien).
-- O: Tanda vital, hasil pemeriksaan fisik, laboratorium. Jika tidak disebutkan, tulis "Tidak disebutkan dalam percakapan. Perlu dilengkapi manual oleh dokter."
-- A: Diagnosis kerja atau kesan klinis dokter.
-- P: Rencana tatalaksana — obat, dosis, durasi, edukasi pasien, rujukan, follow-up.
+Panduan per field:
+- S: Keluhan utama, onset, durasi, karakteristik, riwayat penyakit sekarang dari sudut pandang pasien. Tulis narasi lengkap.
+- O: Tulis persis teks ini tanpa modifikasi: "TD: ___ mmHg | Nadi: ___ x/mnt | Suhu: ___ °C | RR: ___ x/mnt | SpO2: ___%\n\nPemeriksaan Fisik:\n[Diisi dokter setelah pemeriksaan fisik]"
+- A: Diagnosis kerja atau kesan klinis berdasarkan anamnesis. Gunakan terminologi medis yang tepat.
+- P_terapi: Rekomendasi terapi umum berdasarkan diagnosis — obat golongan apa, pendekatan terapi. JANGAN sebut jadwal kontrol, durasi spesifik, atau apapun yang berhubungan dengan jaminan/administrasi. Ini rekomendasi untuk dokter, bukan keputusan final.
+- P_penunjang: Array berisi daftar pemeriksaan penunjang yang MUNGKIN relevan berdasarkan klinis. Maksimal 8 item. Setiap item adalah string singkat, contoh: "Darah lengkap", "Foto Thorax PA", "EKG", "Gula darah sewaktu". Kosongkan array jika tidak ada indikasi penunjang.`;
 
-Gunakan Bahasa Indonesia baku dan terminologi medis yang tepat.`;
+const ICD_SYS=`Kamu adalah koder medis berpengalaman RS Sansani Pekanbaru yang memberikan rekomendasi kode ICD-10 berdasarkan transkrip anamnesis dokter-pasien.
 
-const ICD_SYS=`Kamu adalah koder medis berpengalaman yang membantu dokter di RS Sansani Pekanbaru membuat rekomendasi koding ICD berdasarkan transkrip anamnesis dokter-pasien.
-
-KONTEKS PENTING:
-- Output ini adalah REKOMENDASI AWAL untuk dokter, bukan keputusan final. Koder medis RS akan memverifikasi sebelum klaim.
-- Transkrip hanya mencakup anamnesis, belum termasuk pemeriksaan fisik dan penunjang. Akui keterbatasan ini secara eksplisit jika berpengaruh pada spesifisitas kode.
+PENTING:
+- Output adalah rekomendasi draft untuk dokter. Koder medis RS akan verifikasi final sebelum klaim.
+- Sumber hanya anamnesis — belum ada pemeriksaan fisik dan penunjang. Akui keterbatasan ini dalam confidence.
 - Abaikan percakapan non-medis (BPJS, asuransi, faskes lain).
-
-KAIDAH KODING yang harus diikuti:
-- Gunakan kode ICD-10 paling spesifik yang bisa ditentukan dari informasi yang tersedia
-- Untuk diagnosis utama: pilih kondisi yang paling dominan/utama menjadi alasan konsultasi
-- Untuk diagnosis sekunder: sertakan komorbiditas atau kondisi lain yang disebutkan
-- Untuk ICD-9-CM (prosedur): hanya rekomendasikan jika ada tindakan yang jelas disebutkan dokter. Jika tidak ada, nyatakan bahwa kode prosedur perlu diisi oleh dokter/koder berdasarkan tindakan aktual.
-- Berikan tingkat confidence (tinggi/sedang/rendah) berdasarkan kelengkapan informasi
-- Jika informasi tidak cukup untuk koding spesifik, beri kode yang lebih umum dengan catatan
+- Gunakan kode ICD-10 paling spesifik yang bisa ditentukan dari informasi yang tersedia.
+- Jika informasi kurang spesifik, gunakan kode yang lebih umum dengan confidence rendah.
 
 Kembalikan HANYA JSON ini tanpa teks lain:
 {
   "icd10": [
     {
       "code": "X00.0",
-      "description": "...",
+      "description": "deskripsi lengkap dalam bahasa Indonesia",
       "type": "primer",
       "confidence": "tinggi|sedang|rendah",
-      "reason": "alasan singkat pemilihan kode ini"
+      "reason": "alasan singkat pemilihan kode"
     }
   ],
-  "icd9": [
-    {
-      "code": "00.00",
-      "description": "...",
-      "confidence": "tinggi|sedang|rendah",
-      "reason": "..."
-    }
-  ],
-  "icd9_note": "catatan jika ICD-9 tidak bisa ditentukan dari anamnesis",
   "flags": "peringatan penting untuk koder jika ada, atau null",
-  "info_needed": "informasi tambahan yang dibutuhkan untuk koding lebih spesifik, atau null"
+  "info_needed": "informasi pemeriksaan fisik/penunjang yang diperlukan untuk koding lebih spesifik, atau null"
 }
 
-Untuk icd10, field "type" harus "primer" untuk diagnosis utama dan "sekunder" untuk komorbiditas/kondisi tambahan.`;
+Field type: "primer" untuk diagnosis utama, "sekunder" untuk komorbiditas/kondisi tambahan.`;
 
-// ── ANALYZE: SOAP + ICD PARALLEL ─────────────────────────────
-
+// ── ANALYZE ───────────────────────────────────────────────────
 async function analyzeAll(){
   const tx=finalTx.trim();
   if(tx.length<15){showAlert('Transkrip terlalu pendek.','warn');return;}
@@ -482,57 +410,54 @@ async function analyzeAll(){
   document.getElementById('icdStatus').textContent='Memproses...';
   setSt('Menganalisis transkrip...','');
 
-  document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-mark" style="opacity:.25">SOAP</div><div class="sempty-txt">Menganalisis...</div></div>`;
-  document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-mark" style="opacity:.25">ICD</div><div class="icd-empty-txt">Menganalisis...</div></div>`;
+  document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-mark" style="opacity:.2">SOAP</div><div class="sempty-txt">Menganalisis...</div></div>`;
+  document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-mark" style="opacity:.2">ICD-10</div><div class="icd-empty-txt">Menganalisis...</div></div>`;
 
-  // Jalankan SOAP dan ICD secara paralel
-  const [soapResult, icdResult] = await Promise.allSettled([
+  const [soapRes, icdRes] = await Promise.allSettled([
     callAPI(SOAP_SYS, tx),
     callAPI(ICD_SYS, tx)
   ]);
 
-  // Handle SOAP
-  if(soapResult.status==='fulfilled'){
+  // SOAP
+  if(soapRes.status==='fulfilled'){
     try{
-      const soap=JSON.parse(soapResult.value.replace(/```json|```/g,'').trim());
+      const soap=JSON.parse(soapRes.value.replace(/```json|```/g,'').trim());
       lastSOAP=soap;renderSOAP(soap);
       document.getElementById('soapStatus').textContent='Selesai';
     }catch(e){
-      document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-txt">Gagal parse SOAP.<br>Coba ulang.</div></div>`;
+      document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-txt">Gagal parse hasil SOAP.<br>Coba rekam ulang.</div></div>`;
       document.getElementById('soapStatus').textContent='Error';
     }
   }else{
-    document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-txt">Gagal: ${soapResult.reason?.message||'Error'}</div></div>`;
+    document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-txt">Gagal: ${esc(soapRes.reason?.message||'Error')}</div></div>`;
     document.getElementById('soapStatus').textContent='Error';
-    showAlert('SOAP gagal: '+soapResult.reason?.message,'err');
+    showAlert('SOAP gagal: '+(soapRes.reason?.message||'Error'),'err');
   }
 
-  // Handle ICD
-  if(icdResult.status==='fulfilled'){
+  // ICD
+  if(icdRes.status==='fulfilled'){
     try{
-      const icd=JSON.parse(icdResult.value.replace(/```json|```/g,'').trim());
+      const icd=JSON.parse(icdRes.value.replace(/```json|```/g,'').trim());
       lastICD=icd;renderICD(icd);
-      document.getElementById('icdStatus').textContent='Selesai — verifikasi koder';
+      document.getElementById('icdStatus').textContent='Draft — verifikasi koder';
     }catch(e){
       document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-txt">Gagal parse ICD.<br>Coba ulang.</div></div>`;
       document.getElementById('icdStatus').textContent='Error';
     }
   }else{
-    document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-txt">Gagal: ${icdResult.reason?.message||'Error'}</div></div>`;
+    document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-txt">Gagal: ${esc(icdRes.reason?.message||'Error')}</div></div>`;
     document.getElementById('icdStatus').textContent='Error';
   }
 
-  setSt('Analisis selesai — periksa dan verifikasi sebelum input ke EMR','');
+  setSt('Selesai — periksa hasil sebelum input ke EMR','');
   btn.disabled=false;btn.classList.remove('loading');btn.textContent='Analisis → SOAP + ICD';
 }
 
-async function callAPI(system, transcript){
+async function callAPI(system,transcript){
   const resp=await fetch('/api/analyze',{
     method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      model:'claude-sonnet-4-5',max_tokens:1200,system,
-      messages:[{role:'user',content:`Transkrip:\n\n${transcript}`}]
-    })
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1200,system,
+      messages:[{role:'user',content:`Transkrip:\n\n${transcript}`}]})
   });
   if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${resp.status}`);}
   const data=await resp.json();
@@ -542,148 +467,157 @@ async function callAPI(system, transcript){
 // ── RENDER SOAP ───────────────────────────────────────────────
 const SOAP_META={
   S:{w:'Subjective',d:'Keluhan & Riwayat Pasien'},
-  O:{w:'Objective',d:'Temuan Objektif'},
+  O:{w:'Objective',d:'Tanda Vital & Pemeriksaan Fisik'},
   A:{w:'Assessment',d:'Diagnosis / Kesan Klinis'},
   P:{w:'Plan',d:'Rencana Tatalaksana'}
 };
 
 function renderSOAP(soap){
-  const html=['S','O','A','P'].map(k=>`
-    <div class="sb" data-s="${k}">
-      <div class="sb-head">
-        <div class="sb-icon">${k}</div>
-        <div><div class="sb-word">${SOAP_META[k].w}</div><div class="sb-desc">${SOAP_META[k].d}</div></div>
-      </div>
-      <div class="sb-text">${esc(soap[k]||'—')}</div>
-    </div>`).join('');
+  let html='';
+
+  // S
+  html+=soapBlock('S',`<div class="sb-text">${esc(soap.S||'—')}</div>`);
+  // O — placeholder siap isi
+  html+=soapBlock('O',`<div class="o-placeholder">${esc(soap.O||'TD: ___ mmHg | Nadi: ___ x/mnt | Suhu: ___ °C | RR: ___ x/mnt | SpO2: ___%\n\nPemeriksaan Fisik:\n[Diisi dokter setelah pemeriksaan fisik]')}</div>`);
+  // A
+  html+=soapBlock('A',`<div class="sb-text">${esc(soap.A||'—')}</div>`);
+  // P — split terapi + checklist penunjang
+  let planHtml=`<div class="plan-body">`;
+  if(soap.P_terapi){
+    planHtml+=`<div class="plan-section-label">Rekomendasi Terapi</div>`;
+    planHtml+=`<div class="plan-therapy">${esc(soap.P_terapi)}</div>`;
+    planHtml+=`<div class="plan-note">Keputusan terapi sepenuhnya di tangan dokter.</div>`;
+  }
+  if(soap.P_penunjang&&soap.P_penunjang.length>0){
+    planHtml+=`<div class="plan-section-label" style="margin-top:14px;">Pemeriksaan Penunjang <span style="font-weight:400;color:var(--gray-400)">(centang yang akan dilakukan)</span></div>`;
+    planHtml+=`<div class="checklist" id="checklist">`;
+    soap.P_penunjang.forEach((item,i)=>{
+      const id=`chk_${i}`;
+      planHtml+=`<label class="check-item" id="ci_${i}" onclick="toggleCheck(${i})">
+        <input type="checkbox" id="${id}" onchange="toggleCheck(${i})" onclick="event.stopPropagation()">
+        <span class="check-label">${esc(item)}</span>
+      </label>`;
+    });
+    planHtml+=`</div>`;
+  }
+  planHtml+=`</div>`;
+  html+=soapBlock('P',planHtml);
+
   document.getElementById('soapWrap').innerHTML=html;
   requestAnimationFrame(()=>{document.querySelectorAll('.sb').forEach(el=>{requestAnimationFrame(()=>el.classList.add('show'));});});
   document.getElementById('copyBtn').classList.add('visible');
 }
 
-// ── RENDER ICD ────────────────────────────────────────────────
-function confClass(c){
-  if(c==='tinggi')return 'conf-high';
-  if(c==='sedang')return 'conf-med';
-  return 'conf-low';
-}
-function confLabel(c){
-  if(c==='tinggi')return 'Confidence Tinggi';
-  if(c==='sedang')return 'Confidence Sedang';
-  return 'Confidence Rendah';
+function soapBlock(key,innerHtml){
+  return `<div class="sb" data-s="${key}">
+    <div class="sb-head">
+      <div class="sb-icon">${key}</div>
+      <div><div class="sb-word">${SOAP_META[key].w}</div><div class="sb-desc">${SOAP_META[key].d}</div></div>
+    </div>
+    ${innerHtml}
+  </div>`;
 }
 
+function toggleCheck(i){
+  const cb=document.getElementById(`chk_${i}`);
+  const ci=document.getElementById(`ci_${i}`);
+  // Sync checkbox state
+  if(event.target.tagName!=='INPUT') cb.checked=!cb.checked;
+  if(cb.checked){checkedItems.add(i);ci.classList.add('checked');}
+  else{checkedItems.delete(i);ci.classList.remove('checked');}
+}
+
+// ── RENDER ICD ────────────────────────────────────────────────
 function renderICD(icd){
+  if(!icd.icd10||icd.icd10.length===0){
+    document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-txt">Tidak ada kode yang dapat ditentukan dari anamnesis ini.</div></div>`;
+    return;
+  }
+
+  const primer=icd.icd10.filter(x=>x.type==='primer');
+  const sekunder=icd.icd10.filter(x=>x.type==='sekunder');
   let html='';
 
-  // ICD-10
-  if(icd.icd10&&icd.icd10.length>0){
-    const primer=icd.icd10.filter(x=>x.type==='primer');
-    const sekunder=icd.icd10.filter(x=>x.type==='sekunder');
-
-    if(primer.length>0){
-      html+=`<div class="icd-section"><div class="icd-section-title">ICD-10 · Diagnosis Utama</div>`;
-      primer.forEach((item,i)=>{
-        html+=`<div class="icd-row primary" style="transition-delay:${i*0.06}s">
-          <div class="icd-code">${esc(item.code)}</div>
-          <div><div class="icd-desc">${esc(item.description)}</div><div class="icd-reason">${esc(item.reason||'')}</div></div>
-          <span class="conf-badge ${confClass(item.confidence)}">${confLabel(item.confidence)}</span>
-        </div>`;
-      });
-      html+=`</div>`;
-    }
-
-    if(sekunder.length>0){
-      html+=`<div class="icd-section"><div class="icd-section-title">ICD-10 · Diagnosis Sekunder / Komorbiditas</div>`;
-      sekunder.forEach((item,i)=>{
-        html+=`<div class="icd-row secondary" style="transition-delay:${(primer.length+i)*0.06}s">
-          <div class="icd-code">${esc(item.code)}</div>
-          <div><div class="icd-desc">${esc(item.description)}</div><div class="icd-reason">${esc(item.reason||'')}</div></div>
-          <span class="conf-badge ${confClass(item.confidence)}">${confLabel(item.confidence)}</span>
-        </div>`;
-      });
-      html+=`</div>`;
-    }
-  }
-
-  // ICD-9-CM
-  html+=`<div class="icd-section"><div class="icd-section-title">ICD-9-CM · Prosedur</div>`;
-  if(icd.icd9&&icd.icd9.length>0){
-    icd.icd9.forEach((item,i)=>{
-      html+=`<div class="icd-row secondary" style="transition-delay:${((icd.icd10||[]).length+i)*0.06}s">
-        <div class="icd-code">${esc(item.code)}</div>
-        <div><div class="icd-desc">${esc(item.description)}</div><div class="icd-reason">${esc(item.reason||'')}</div></div>
-        <span class="conf-badge ${confClass(item.confidence)}">${confLabel(item.confidence)}</span>
-      </div>`;
+  if(primer.length>0){
+    html+=`<div class="icd-section"><div class="icd-section-title">Diagnosis Utama</div>`;
+    primer.forEach((item,i)=>{
+      html+=icdRow(item,'primer',i);
     });
-  } else {
-    const note=icd.icd9_note||'Kode prosedur tidak dapat ditentukan dari anamnesis. Perlu dilengkapi dokter/koder berdasarkan tindakan aktual.';
-    html+=`<div style="padding:8px 0;font-size:13px;color:var(--gray-400);font-style:italic;">${esc(note)}</div>`;
+    html+=`</div>`;
   }
-  html+=`</div>`;
+  if(sekunder.length>0){
+    html+=`<div class="icd-section"><div class="icd-section-title">Diagnosis Sekunder / Komorbiditas</div>`;
+    sekunder.forEach((item,i)=>{
+      html+=icdRow(item,'sekunder',primer.length+i);
+    });
+    html+=`</div>`;
+  }
+  if(icd.info_needed){
+    html+=`<div class="icd-section"><div class="icd-note">ℹ ${esc(icd.info_needed)}</div></div>`;
+  }
 
   document.getElementById('icdWrap').innerHTML=html;
+  requestAnimationFrame(()=>{document.querySelectorAll('.icd-row').forEach(el=>{requestAnimationFrame(()=>el.classList.add('show'));});});
 
-  // Animate rows
-  requestAnimationFrame(()=>{
-    document.querySelectorAll('.icd-row').forEach(el=>{
-      requestAnimationFrame(()=>el.classList.add('show'));
-    });
-  });
-
-  // Flags & warnings
   const flagEl=document.getElementById('icdFlag');
-  const warnEl=document.getElementById('icdWarn');
-
-  if(icd.flags){
-    flagEl.textContent='⚠ '+icd.flags;
-    flagEl.classList.remove('hidden');
-  } else { flagEl.classList.add('hidden'); }
-
-  if(icd.info_needed){
-    warnEl.textContent='ℹ Informasi tambahan diperlukan untuk koding lebih spesifik: '+icd.info_needed;
-    warnEl.classList.remove('hidden');
-  } else { warnEl.classList.add('hidden'); }
+  if(icd.flags){flagEl.textContent='⚠ '+icd.flags;flagEl.classList.add('visible');}
+  else{flagEl.classList.remove('visible');}
 
   document.getElementById('copyIcdBtn').classList.add('visible');
+}
+
+function icdRow(item,type,idx){
+  const cc=item.confidence==='tinggi'?'conf-high':item.confidence==='sedang'?'conf-med':'conf-low';
+  const cl=item.confidence==='tinggi'?'Tinggi':item.confidence==='sedang'?'Sedang':'Rendah';
+  return `<div class="icd-row ${type}" style="transition-delay:${idx*0.06}s">
+    <div class="icd-code">${esc(item.code)}</div>
+    <div><div class="icd-desc">${esc(item.description)}</div><div class="icd-reason">${esc(item.reason||'')}</div></div>
+    <span class="conf-badge ${cc}">${cl}</span>
+  </div>`;
 }
 
 // ── COPY ──────────────────────────────────────────────────────
 function copySOAP(){
   if(!lastSOAP)return;
-  const txt=['S','O','A','P'].map(k=>`[${k} - ${SOAP_META[k].w}]\n${lastSOAP[k]||'—'}`).join('\n\n');
-  navigator.clipboard.writeText(txt).then(()=>{
+  let txt='';
+  txt+=`[S - Subjective]\n${lastSOAP.S||'—'}\n\n`;
+  txt+=`[O - Objective]\n${lastSOAP.O||'TD: ___ | Nadi: ___ | Suhu: ___ | RR: ___ | SpO2: ___\nPemeriksaan Fisik: [isi manual]'}\n\n`;
+  txt+=`[A - Assessment]\n${lastSOAP.A||'—'}\n\n`;
+  txt+=`[P - Plan]\nTerapi: ${lastSOAP.P_terapi||'—'}\n`;
+  if(lastSOAP.P_penunjang&&lastSOAP.P_penunjang.length>0){
+    const checked=lastSOAP.P_penunjang.filter((_,i)=>checkedItems.has(i));
+    if(checked.length>0){
+      txt+=`Pemeriksaan Penunjang: ${checked.join(', ')}`;
+    }
+  }
+  navigator.clipboard.writeText(txt.trim()).then(()=>{
     const b=document.getElementById('copyBtn');b.textContent='✓ Tersalin!';
     setTimeout(()=>b.textContent='⎘ Salin Hasil SOAP',2000);
   }).catch(()=>showAlert('Gagal menyalin.','warn'));
 }
 
 function copyICD(){
-  if(!lastICD)return;
-  let txt='=== REKOMENDASI KODING ICD ===\n';
-  txt+='** DRAFT — Wajib diverifikasi koder sebelum klaim **\n\n';
-  if(lastICD.icd10&&lastICD.icd10.length>0){
-    txt+='ICD-10:\n';
-    lastICD.icd10.forEach(x=>{
-      txt+=`[${x.type==='primer'?'UTAMA':'SEKUNDER'}] ${x.code} — ${x.description} (${x.confidence})\n`;
-      if(x.reason)txt+=`  Dasar: ${x.reason}\n`;
-    });
+  if(!lastICD||!lastICD.icd10)return;
+  let txt='=== REKOMENDASI ICD-10 (DRAFT) ===\nWajib diverifikasi koder sebelum klaim.\n\n';
+  const primer=lastICD.icd10.filter(x=>x.type==='primer');
+  const sekunder=lastICD.icd10.filter(x=>x.type==='sekunder');
+  if(primer.length>0){
+    txt+='DIAGNOSIS UTAMA:\n';
+    primer.forEach(x=>{txt+=`${x.code} — ${x.description} [Confidence: ${x.confidence}]\n  Dasar: ${x.reason}\n`;});
   }
-  txt+='\nICD-9-CM (Prosedur):\n';
-  if(lastICD.icd9&&lastICD.icd9.length>0){
-    lastICD.icd9.forEach(x=>{txt+=`${x.code} — ${x.description} (${x.confidence})\n`;});
-  } else { txt+=(lastICD.icd9_note||'Perlu dilengkapi manual')+'\n'; }
-  if(lastICD.flags)txt+='\nCATATAN: '+lastICD.flags+'\n';
-  if(lastICD.info_needed)txt+='\nINFO TAMBAHAN DIPERLUKAN: '+lastICD.info_needed+'\n';
-
-  navigator.clipboard.writeText(txt).then(()=>{
+  if(sekunder.length>0){
+    txt+='\nDIAGNOSIS SEKUNDER:\n';
+    sekunder.forEach(x=>{txt+=`${x.code} — ${x.description} [Confidence: ${x.confidence}]\n  Dasar: ${x.reason}\n`;});
+  }
+  if(lastICD.info_needed)txt+=`\nInfo tambahan diperlukan: ${lastICD.info_needed}\n`;
+  if(lastICD.flags)txt+=`\nCatatan koder: ${lastICD.flags}\n`;
+  navigator.clipboard.writeText(txt.trim()).then(()=>{
     const b=document.getElementById('copyIcdBtn');b.textContent='✓ Tersalin!';
-    setTimeout(()=>b.textContent='⎘ Salin Rekomendasi Koding',2000);
+    setTimeout(()=>b.textContent='⎘ Salin Rekomendasi ICD-10',2000);
   }).catch(()=>showAlert('Gagal menyalin.','warn'));
 }
 
-// ── HELPERS ───────────────────────────────────────────────────
-function esc(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
 function showAlert(m,t){document.getElementById('alertBox').innerHTML=`<div class="alert ${t}">${m}</div>`;}
 function clearAlert(){document.getElementById('alertBox').innerHTML='';}
 function setSt(m,t){document.getElementById('smsg').textContent=m;const d=document.getElementById('sdot');d.className='sdot'+(t==='err'?' err':t==='warn'?' warn':'');}
