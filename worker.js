@@ -23,7 +23,7 @@ export default {
 
       // ════════════════════════════════════
       // GANTI API KEY DI SINI
-      const API_KEY = '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';
+      const API_KEY = env.ANTHROPIC_KEY;
       // ════════════════════════════════════
 
       let body;
