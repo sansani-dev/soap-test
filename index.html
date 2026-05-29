@@ -37,8 +37,8 @@ nav{
 .nav-sub{font-size:12px;color:rgba(255,255,255,.45);margin-left:auto;}
 
 /* LAYOUT */
-.main{max-width:1160px;margin:0 auto;padding:24px 24px 48px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-@media(max-width:740px){.main{grid-template-columns:1fr;}}
+.main{max-width:1280px;margin:0 auto;padding:24px 24px 48px;display:grid;grid-template-columns:1fr 1.4fr;gap:20px;}
+@media(max-width:800px){.main{grid-template-columns:1fr;}}
 
 /* PANEL */
 .panel{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);}
@@ -46,6 +46,9 @@ nav{
 .panel-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--gray-500);}
 .panel-meta{font-size:12px;color:var(--gray-400);}
 .panel-body{padding:24px;}
+
+/* RIGHT COLUMN: stacked panels */
+.right-col{display:flex;flex-direction:column;gap:20px;}
 
 /* RECORD */
 .rec-area{display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px 0 24px;}
@@ -61,25 +64,17 @@ nav{
 @keyframes rp{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.14)}50%{box-shadow:0 0 0 14px rgba(220,38,38,0)}}
 .rec-dot{width:26px;height:26px;border-radius:50%;background:var(--blue);transition:all .15s;}
 .rec-btn.on .rec-dot{background:var(--red);border-radius:5px;width:20px;height:20px;}
-
 .rec-txt{text-align:center;}
 .rec-state{font-size:13px;color:var(--gray-500);}
 .rec-state.on{color:var(--red);}
 .rec-time{font-size:36px;font-weight:300;letter-spacing:3px;color:var(--gray-700);font-variant-numeric:tabular-nums;margin-top:4px;}
 .rec-time.on{color:var(--red);}
-
 .wave{display:flex;align-items:center;gap:3px;height:32px;opacity:0;transition:opacity .25s;}
 .wave.on{opacity:1;}
 .wb{width:3px;border-radius:2px;background:var(--red);height:3px;transition:height .09s ease;opacity:.65;}
 
-/* TX COUNT — invisible box, hanya untuk track karakter */
-/* transkrip tidak ditampilkan ke layar */
-
-.tx-counter{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 14px;border:1px solid var(--gray-200);border-radius:var(--r);
-  background:var(--gray-50);margin-bottom:0;
-}
+/* COUNTER */
+.tx-counter{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border:1px solid var(--gray-200);border-radius:var(--r);background:var(--gray-50);}
 .tx-counter-label{font-size:13px;color:var(--gray-500);}
 .tx-counter-val{font-size:13px;font-weight:600;color:var(--blue);}
 
@@ -104,19 +99,15 @@ nav{
 .alert.warn{background:var(--amber-light);border-color:rgba(217,119,6,.2);color:var(--amber);display:block;}
 
 /* INFO BOX */
-.infobox{
-  border-radius:var(--r);padding:11px 14px;font-size:12.5px;line-height:1.6;
-  background:var(--teal-light);border:1px solid rgba(14,154,142,.2);color:#0c7a70;
-  margin-top:14px;
-}
+.infobox{border-radius:var(--r);padding:11px 14px;font-size:12.5px;line-height:1.6;background:var(--teal-light);border:1px solid rgba(14,154,142,.2);color:#0c7a70;margin-top:14px;}
 
 /* SOAP EMPTY */
-.sempty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:360px;gap:12px;padding:24px;}
-.sempty-mark{font-size:48px;font-weight:300;letter-spacing:10px;color:var(--gray-200);}
+.sempty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px;gap:12px;padding:24px;}
+.sempty-mark{font-size:40px;font-weight:300;letter-spacing:10px;color:var(--gray-200);}
 .sempty-txt{font-size:14px;color:var(--gray-400);text-align:center;line-height:1.9;}
 
 /* SOAP BLOCKS */
-.sb{padding:20px 22px;border-bottom:1px solid var(--gray-200);opacity:0;transform:translateY(5px);transition:opacity .3s ease,transform .3s ease;}
+.sb{padding:18px 20px;border-bottom:1px solid var(--gray-200);opacity:0;transform:translateY(5px);transition:opacity .3s ease,transform .3s ease;}
 .sb:last-child{border-bottom:none;}
 .sb.show{opacity:1;transform:none;}
 .sb:nth-child(1){transition-delay:.03s}.sb:nth-child(2){transition-delay:.09s}
@@ -125,23 +116,85 @@ nav{
 .sb[data-s="O"]{border-left:3px solid var(--O);}
 .sb[data-s="A"]{border-left:3px solid var(--A);}
 .sb[data-s="P"]{border-left:3px solid var(--P);}
-.sb-head{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-.sb-icon{width:36px;height:36px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;}
+.sb-head{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.sb-icon{width:34px;height:34px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;}
 .sb[data-s="S"] .sb-icon{background:rgba(10,77,124,.07);color:var(--S);}
 .sb[data-s="O"] .sb-icon{background:rgba(124,58,237,.07);color:var(--O);}
 .sb[data-s="A"] .sb-icon{background:rgba(194,65,12,.07);color:var(--A);}
 .sb[data-s="P"] .sb-icon{background:rgba(14,154,142,.07);color:var(--P);}
 .sb-word{font-size:14px;font-weight:600;color:var(--gray-900);}
-.sb-desc{font-size:11.5px;color:var(--gray-400);margin-top:1px;}
-.sb-text{font-size:14px;line-height:1.85;color:var(--gray-700);white-space:pre-wrap;}
+.sb-desc{font-size:11px;color:var(--gray-400);margin-top:1px;}
+.sb-text{font-size:13.5px;line-height:1.85;color:var(--gray-700);white-space:pre-wrap;}
 
 /* COPY */
-.copy-btn{display:none;margin:0 22px 20px;padding:10px;border-radius:var(--r);background:transparent;border:1px solid var(--gray-200);color:var(--gray-500);font-size:13px;font-weight:500;cursor:pointer;transition:all .12s;width:calc(100% - 44px);}
+.copy-btn{display:none;margin:0 20px 18px;padding:10px;border-radius:var(--r);background:transparent;border:1px solid var(--gray-200);color:var(--gray-500);font-size:13px;font-weight:500;cursor:pointer;transition:all .12s;width:calc(100% - 40px);}
 .copy-btn:hover{background:var(--gray-100);border-color:var(--gray-300);color:var(--gray-700);}
 .copy-btn.visible{display:block;}
 
+/* ── ICD PANEL ── */
+.icd-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:160px;gap:10px;padding:20px;}
+.icd-empty-mark{font-size:28px;font-weight:300;letter-spacing:6px;color:var(--gray-200);}
+.icd-empty-txt{font-size:13px;color:var(--gray-400);text-align:center;line-height:1.8;}
+
+.icd-section{padding:14px 18px;border-bottom:1px solid var(--gray-200);}
+.icd-section:last-child{border-bottom:none;}
+.icd-section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--gray-400);margin-bottom:10px;}
+
+.icd-row{
+  display:grid;grid-template-columns:110px 1fr auto;
+  align-items:start;gap:10px;
+  padding:10px 12px;border-radius:6px;
+  border:1px solid var(--gray-200);
+  background:var(--gray-50);
+  margin-bottom:8px;
+  opacity:0;transform:translateY(4px);
+  transition:opacity .3s ease,transform .3s ease;
+}
+.icd-row:last-child{margin-bottom:0;}
+.icd-row.show{opacity:1;transform:none;}
+.icd-row.primary{border-color:#bfdbfe;background:#eff6ff;}
+.icd-row.secondary{border-color:var(--gray-200);background:var(--gray-50);}
+
+.icd-code{
+  font-size:14px;font-weight:700;color:var(--blue);
+  font-family:'SF Mono',Monaco,'Cascadia Code',monospace;
+  letter-spacing:.3px;padding-top:1px;
+}
+.icd-row.secondary .icd-code{color:var(--gray-500);}
+.icd-desc{font-size:13px;color:var(--gray-700);line-height:1.5;}
+.icd-reason{font-size:11.5px;color:var(--gray-400);margin-top:3px;line-height:1.4;}
+
+.conf-badge{
+  font-size:10px;font-weight:600;padding:3px 8px;border-radius:99px;
+  white-space:nowrap;flex-shrink:0;
+}
+.conf-high{background:#dcfce7;color:#16a34a;}
+.conf-med{background:#fef9c3;color:#a16207;}
+.conf-low{background:#fee2e2;color:#dc2626;}
+
+/* ICD warning box */
+.icd-warn{
+  margin:12px 18px;padding:10px 13px;
+  background:var(--amber-light);border:1px solid rgba(217,119,6,.2);
+  border-radius:6px;font-size:12px;color:var(--amber);line-height:1.6;
+}
+.icd-warn.hidden{display:none;}
+
+/* FLAG */
+.icd-flag{
+  margin:0 18px 14px;padding:9px 13px;
+  background:#fef2f2;border:1px solid rgba(220,38,38,.15);
+  border-radius:6px;font-size:12px;color:var(--red);line-height:1.6;
+}
+.icd-flag.hidden{display:none;}
+
+/* copy icd btn */
+.copy-icd-btn{display:none;margin:0 18px 16px;padding:9px;border-radius:var(--r);background:transparent;border:1px solid var(--gray-200);color:var(--gray-500);font-size:12.5px;font-weight:500;cursor:pointer;transition:all .12s;width:calc(100% - 36px);}
+.copy-icd-btn:hover{background:var(--gray-100);color:var(--gray-700);}
+.copy-icd-btn.visible{display:block;}
+
 /* STATUS */
-.statusbar{max-width:1160px;margin:0 auto;padding:0 24px 28px;}
+.statusbar{max-width:1280px;margin:0 auto;padding:0 24px 28px;}
 .sb-inner{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--gray-400);}
 .sdot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0;}
 .sdot.err{background:var(--red);}.sdot.warn{background:var(--amber);}
@@ -174,7 +227,6 @@ nav{
     </div>
     <div class="panel-body">
       <div id="alertBox"></div>
-
       <div class="rec-area">
         <button class="rec-btn" id="recBtn" onclick="toggleRecord()">
           <div class="rec-dot" id="recDot"></div>
@@ -186,7 +238,6 @@ nav{
         <div class="wave" id="wave"></div>
       </div>
 
-      <!-- Hanya tampilkan jumlah kata, bukan isi transkrip -->
       <div class="tx-counter">
         <span class="tx-counter-label">Kata terekam</span>
         <span class="tx-counter-val" id="wordCount">0 kata</span>
@@ -194,7 +245,7 @@ nav{
 
       <div class="brow">
         <button class="btn btn-ghost" onclick="clearAll()">Reset</button>
-        <button class="btn btn-blue" id="analyzeBtn" onclick="analyzeSOAP()" disabled>Analisis → SOAP</button>
+        <button class="btn btn-blue" id="analyzeBtn" onclick="analyzeAll()" disabled>Analisis → SOAP + ICD</button>
       </div>
 
       <div class="langs">
@@ -206,26 +257,47 @@ nav{
       </div>
 
       <div class="infobox">
-        ✦ Percakapan non-medis (administrasi, BPJS, asuransi, komentar tentang faskes lain) diabaikan otomatis dan tidak akan masuk ke SOAP.
+        ✦ Percakapan non-medis (BPJS, asuransi, biaya, komentar faskes lain) diabaikan otomatis dan tidak masuk ke SOAP maupun koding.
       </div>
     </div>
   </div>
 
-  <!-- KANAN: SOAP -->
-  <div class="panel">
-    <div class="panel-head">
-      <span class="panel-title">Format SOAP</span>
-      <span class="panel-meta" id="soapStatus">Menunggu analisis</span>
-    </div>
-    <div id="soapWrap">
-      <div class="sempty">
-        <div class="sempty-mark">SOAP</div>
-        <div class="sempty-txt">Rekam percakapan dokter–pasien<br>lalu tekan <strong>Analisis → SOAP</strong></div>
-      </div>
-    </div>
-    <button class="copy-btn" id="copyBtn" onclick="copySOAP()">⎘ Salin Hasil SOAP</button>
-  </div>
+  <!-- KANAN: SOAP + ICD -->
+  <div class="right-col">
 
+    <!-- SOAP PANEL -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Format SOAP</span>
+        <span class="panel-meta" id="soapStatus">Menunggu analisis</span>
+      </div>
+      <div id="soapWrap">
+        <div class="sempty">
+          <div class="sempty-mark">SOAP</div>
+          <div class="sempty-txt">Rekam percakapan dokter–pasien<br>lalu tekan <strong>Analisis → SOAP + ICD</strong></div>
+        </div>
+      </div>
+      <button class="copy-btn" id="copyBtn" onclick="copySOAP()">⎘ Salin Hasil SOAP</button>
+    </div>
+
+    <!-- ICD PANEL -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Rekomendasi Koding ICD</span>
+        <span class="panel-meta" id="icdStatus">Menunggu analisis</span>
+      </div>
+      <div id="icdWrap">
+        <div class="icd-empty">
+          <div class="icd-empty-mark">ICD</div>
+          <div class="icd-empty-txt">Kode ICD-10 dan ICD-9-CM<br>akan muncul setelah analisis</div>
+        </div>
+      </div>
+      <div class="icd-warn hidden" id="icdWarn"></div>
+      <div class="icd-flag hidden" id="icdFlag"></div>
+      <button class="copy-icd-btn" id="copyIcdBtn" onclick="copyICD()">⎘ Salin Rekomendasi Koding</button>
+    </div>
+
+  </div>
 </div>
 
 <div class="statusbar">
@@ -238,7 +310,7 @@ nav{
 
 <script>
 let recognition=null,isRecording=false,timerRef=null,waveRef=null;
-let seconds=0,finalTx='',interimTx='',wBars=[],lastSOAP=null;
+let seconds=0,finalTx='',interimTx='',wBars=[],lastSOAP=null,lastICD=null;
 
 (function(){
   const wf=document.getElementById('wave');
@@ -271,10 +343,9 @@ function buildRec(){
 }
 
 function updCount(){
-  const words=finalTx.trim()===''?0:finalTx.trim().split(/\s+/).length;
-  document.getElementById('wordCount').textContent=words+' kata';
-  // estimasi token untuk status bar
-  const tI=Math.round(words*1.4)+300,tO=400;
+  const w=finalTx.trim()===''?0:finalTx.trim().split(/\s+/).length;
+  document.getElementById('wordCount').textContent=w+' kata';
+  const tI=Math.round(w*1.4)+600,tO=600;
   document.getElementById('tokenInfo').textContent=`~${tI} token · est. $${(((tI/1e6)*3)+((tO/1e6)*15)).toFixed(4)}/call`;
 }
 
@@ -316,7 +387,7 @@ function stopRec(){
 
 function clearAll(){
   if(isRecording)stopRec();
-  finalTx='';interimTx='';lastSOAP=null;seconds=0;
+  finalTx='';interimTx='';lastSOAP=null;lastICD=null;seconds=0;
   document.getElementById('recTime').textContent='00:00';
   document.getElementById('recState').textContent='Tekan untuk mulai merekam';
   document.getElementById('recInd').textContent='Siap';
@@ -325,21 +396,19 @@ function clearAll(){
   document.getElementById('wordCount').textContent='0 kata';
   document.getElementById('tokenInfo').textContent='';
   document.getElementById('soapStatus').textContent='Menunggu analisis';
+  document.getElementById('icdStatus').textContent='Menunggu analisis';
   document.getElementById('copyBtn').classList.remove('visible');
-  document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-mark">SOAP</div><div class="sempty-txt">Rekam percakapan dokter–pasien<br>lalu tekan <strong>Analisis → SOAP</strong></div></div>`;
+  document.getElementById('copyIcdBtn').classList.remove('visible');
+  document.getElementById('icdWarn').classList.add('hidden');
+  document.getElementById('icdFlag').classList.add('hidden');
+  document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-mark">SOAP</div><div class="sempty-txt">Rekam percakapan dokter–pasien<br>lalu tekan <strong>Analisis → SOAP + ICD</strong></div></div>`;
+  document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-mark">ICD</div><div class="icd-empty-txt">Kode ICD-10 dan ICD-9-CM<br>akan muncul setelah analisis</div></div>`;
   clearAlert();setSt('Sistem siap','');
 }
 
-async function analyzeSOAP(){
-  const tx=finalTx.trim();
-  if(tx.length<15){showAlert('Transkrip terlalu pendek.','warn');return;}
-  const btn=document.getElementById('analyzeBtn');
-  btn.disabled=true;btn.classList.add('loading');btn.textContent='Menganalisis...';
-  document.getElementById('soapStatus').textContent='Memproses...';
-  setSt('Mengirim ke Claude...','');
-  document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-mark" style="opacity:.25">SOAP</div><div class="sempty-txt">Sedang menganalisis transkrip...</div></div>`;
+// ── SYSTEM PROMPTS ────────────────────────────────────────────
 
-  const SYS=`Kamu adalah asisten medis RS Sansani Pekanbaru yang mengekstrak informasi klinis dari transkrip percakapan dokter-pasien dan mengkonversinya menjadi SOAP note.
+const SOAP_SYS=`Kamu adalah asisten medis RS Sansani Pekanbaru yang mengekstrak informasi klinis dari transkrip percakapan dokter-pasien dan mengkonversinya menjadi SOAP note.
 
 PENTING — Filter ketat sebelum mengekstrak:
 Abaikan sepenuhnya semua percakapan yang tidak berhubungan dengan kondisi medis pasien, termasuk:
@@ -348,7 +417,7 @@ Abaikan sepenuhnya semua percakapan yang tidak berhubungan dengan kondisi medis 
 - Keluhan operasional, prosedur klaim, atau kebijakan rumah sakit
 - Percakapan basa-basi atau topik di luar kondisi pasien
 
-Hanya ekstrak informasi klinis murni: keluhan, gejala, pemeriksaan, diagnosis, dan rencana pengobatan.
+Hanya ekstrak informasi klinis murni.
 
 Transkrip mungkin dalam bahasa Indonesia, Inggris, atau campuran bahasa daerah (Minang, Jawa, Batak). Transkripsi otomatis sering tidak sempurna — interpretasikan dari konteks medis.
 
@@ -356,33 +425,124 @@ Kembalikan HANYA JSON ini tanpa teks lain:
 {"S":"...","O":"...","A":"...","P":"..."}
 
 - S: Keluhan utama, onset, durasi, karakteristik, riwayat penyakit sekarang (dari sudut pandang pasien).
-- O: Tanda vital, hasil pemeriksaan fisik, laboratorium. Jika tidak disebutkan, tulis "Tidak disebutkan."
+- O: Tanda vital, hasil pemeriksaan fisik, laboratorium. Jika tidak disebutkan, tulis "Tidak disebutkan dalam percakapan. Perlu dilengkapi manual oleh dokter."
 - A: Diagnosis kerja atau kesan klinis dokter.
 - P: Rencana tatalaksana — obat, dosis, durasi, edukasi pasien, rujukan, follow-up.
 
 Gunakan Bahasa Indonesia baku dan terminologi medis yang tepat.`;
 
-  try{
-    const resp=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1000,system:SYS,messages:[{role:'user',content:`Transkrip:\n\n${tx}`}]})});
-    if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${resp.status}`);}
-    const data=await resp.json();
-    const raw=data.content.find(b=>b.type==='text')?.text||'';
-    let soap;
-    try{soap=JSON.parse(raw.replace(/```json|```/g,'').trim());}
-    catch(e){throw new Error('Format respons tidak valid.');}
-    lastSOAP=soap;renderSOAP(soap);
-    const u=data.usage;
-    if(u)document.getElementById('tokenInfo').textContent=`${u.input_tokens} in · ${u.output_tokens} out · $${(((u.input_tokens/1e6)*3)+((u.output_tokens/1e6)*15)).toFixed(4)}`;
-    document.getElementById('soapStatus').textContent='Selesai';setSt('Analisis selesai','');
-  }catch(err){
-    showAlert('Gagal: '+err.message,'err');
-    document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-txt">Analisis gagal.<br><small>${err.message}</small></div></div>`;
-    document.getElementById('soapStatus').textContent='Error';setSt('Gagal','err');
-  }finally{btn.disabled=false;btn.classList.remove('loading');btn.textContent='Analisis → SOAP';}
+const ICD_SYS=`Kamu adalah koder medis berpengalaman yang membantu dokter di RS Sansani Pekanbaru membuat rekomendasi koding ICD berdasarkan transkrip anamnesis dokter-pasien.
+
+KONTEKS PENTING:
+- Output ini adalah REKOMENDASI AWAL untuk dokter, bukan keputusan final. Koder medis RS akan memverifikasi sebelum klaim.
+- Transkrip hanya mencakup anamnesis, belum termasuk pemeriksaan fisik dan penunjang. Akui keterbatasan ini secara eksplisit jika berpengaruh pada spesifisitas kode.
+- Abaikan percakapan non-medis (BPJS, asuransi, faskes lain).
+
+KAIDAH KODING yang harus diikuti:
+- Gunakan kode ICD-10 paling spesifik yang bisa ditentukan dari informasi yang tersedia
+- Untuk diagnosis utama: pilih kondisi yang paling dominan/utama menjadi alasan konsultasi
+- Untuk diagnosis sekunder: sertakan komorbiditas atau kondisi lain yang disebutkan
+- Untuk ICD-9-CM (prosedur): hanya rekomendasikan jika ada tindakan yang jelas disebutkan dokter. Jika tidak ada, nyatakan bahwa kode prosedur perlu diisi oleh dokter/koder berdasarkan tindakan aktual.
+- Berikan tingkat confidence (tinggi/sedang/rendah) berdasarkan kelengkapan informasi
+- Jika informasi tidak cukup untuk koding spesifik, beri kode yang lebih umum dengan catatan
+
+Kembalikan HANYA JSON ini tanpa teks lain:
+{
+  "icd10": [
+    {
+      "code": "X00.0",
+      "description": "...",
+      "type": "primer",
+      "confidence": "tinggi|sedang|rendah",
+      "reason": "alasan singkat pemilihan kode ini"
+    }
+  ],
+  "icd9": [
+    {
+      "code": "00.00",
+      "description": "...",
+      "confidence": "tinggi|sedang|rendah",
+      "reason": "..."
+    }
+  ],
+  "icd9_note": "catatan jika ICD-9 tidak bisa ditentukan dari anamnesis",
+  "flags": "peringatan penting untuk koder jika ada, atau null",
+  "info_needed": "informasi tambahan yang dibutuhkan untuk koding lebih spesifik, atau null"
 }
 
-const META={
+Untuk icd10, field "type" harus "primer" untuk diagnosis utama dan "sekunder" untuk komorbiditas/kondisi tambahan.`;
+
+// ── ANALYZE: SOAP + ICD PARALLEL ─────────────────────────────
+
+async function analyzeAll(){
+  const tx=finalTx.trim();
+  if(tx.length<15){showAlert('Transkrip terlalu pendek.','warn');return;}
+
+  const btn=document.getElementById('analyzeBtn');
+  btn.disabled=true;btn.classList.add('loading');btn.textContent='Menganalisis...';
+  document.getElementById('soapStatus').textContent='Memproses...';
+  document.getElementById('icdStatus').textContent='Memproses...';
+  setSt('Menganalisis transkrip...','');
+
+  document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-mark" style="opacity:.25">SOAP</div><div class="sempty-txt">Menganalisis...</div></div>`;
+  document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-mark" style="opacity:.25">ICD</div><div class="icd-empty-txt">Menganalisis...</div></div>`;
+
+  // Jalankan SOAP dan ICD secara paralel
+  const [soapResult, icdResult] = await Promise.allSettled([
+    callAPI(SOAP_SYS, tx),
+    callAPI(ICD_SYS, tx)
+  ]);
+
+  // Handle SOAP
+  if(soapResult.status==='fulfilled'){
+    try{
+      const soap=JSON.parse(soapResult.value.replace(/```json|```/g,'').trim());
+      lastSOAP=soap;renderSOAP(soap);
+      document.getElementById('soapStatus').textContent='Selesai';
+    }catch(e){
+      document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-txt">Gagal parse SOAP.<br>Coba ulang.</div></div>`;
+      document.getElementById('soapStatus').textContent='Error';
+    }
+  }else{
+    document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-txt">Gagal: ${soapResult.reason?.message||'Error'}</div></div>`;
+    document.getElementById('soapStatus').textContent='Error';
+    showAlert('SOAP gagal: '+soapResult.reason?.message,'err');
+  }
+
+  // Handle ICD
+  if(icdResult.status==='fulfilled'){
+    try{
+      const icd=JSON.parse(icdResult.value.replace(/```json|```/g,'').trim());
+      lastICD=icd;renderICD(icd);
+      document.getElementById('icdStatus').textContent='Selesai — verifikasi koder';
+    }catch(e){
+      document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-txt">Gagal parse ICD.<br>Coba ulang.</div></div>`;
+      document.getElementById('icdStatus').textContent='Error';
+    }
+  }else{
+    document.getElementById('icdWrap').innerHTML=`<div class="icd-empty"><div class="icd-empty-txt">Gagal: ${icdResult.reason?.message||'Error'}</div></div>`;
+    document.getElementById('icdStatus').textContent='Error';
+  }
+
+  setSt('Analisis selesai — periksa dan verifikasi sebelum input ke EMR','');
+  btn.disabled=false;btn.classList.remove('loading');btn.textContent='Analisis → SOAP + ICD';
+}
+
+async function callAPI(system, transcript){
+  const resp=await fetch('/api/analyze',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-5',max_tokens:1200,system,
+      messages:[{role:'user',content:`Transkrip:\n\n${transcript}`}]
+    })
+  });
+  if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${resp.status}`);}
+  const data=await resp.json();
+  return data.content.find(b=>b.type==='text')?.text||'';
+}
+
+// ── RENDER SOAP ───────────────────────────────────────────────
+const SOAP_META={
   S:{w:'Subjective',d:'Keluhan & Riwayat Pasien'},
   O:{w:'Objective',d:'Temuan Objektif'},
   A:{w:'Assessment',d:'Diagnosis / Kesan Klinis'},
@@ -394,7 +554,7 @@ function renderSOAP(soap){
     <div class="sb" data-s="${k}">
       <div class="sb-head">
         <div class="sb-icon">${k}</div>
-        <div><div class="sb-word">${META[k].w}</div><div class="sb-desc">${META[k].d}</div></div>
+        <div><div class="sb-word">${SOAP_META[k].w}</div><div class="sb-desc">${SOAP_META[k].d}</div></div>
       </div>
       <div class="sb-text">${esc(soap[k]||'—')}</div>
     </div>`).join('');
@@ -403,16 +563,129 @@ function renderSOAP(soap){
   document.getElementById('copyBtn').classList.add('visible');
 }
 
+// ── RENDER ICD ────────────────────────────────────────────────
+function confClass(c){
+  if(c==='tinggi')return 'conf-high';
+  if(c==='sedang')return 'conf-med';
+  return 'conf-low';
+}
+function confLabel(c){
+  if(c==='tinggi')return 'Confidence Tinggi';
+  if(c==='sedang')return 'Confidence Sedang';
+  return 'Confidence Rendah';
+}
+
+function renderICD(icd){
+  let html='';
+
+  // ICD-10
+  if(icd.icd10&&icd.icd10.length>0){
+    const primer=icd.icd10.filter(x=>x.type==='primer');
+    const sekunder=icd.icd10.filter(x=>x.type==='sekunder');
+
+    if(primer.length>0){
+      html+=`<div class="icd-section"><div class="icd-section-title">ICD-10 · Diagnosis Utama</div>`;
+      primer.forEach((item,i)=>{
+        html+=`<div class="icd-row primary" style="transition-delay:${i*0.06}s">
+          <div class="icd-code">${esc(item.code)}</div>
+          <div><div class="icd-desc">${esc(item.description)}</div><div class="icd-reason">${esc(item.reason||'')}</div></div>
+          <span class="conf-badge ${confClass(item.confidence)}">${confLabel(item.confidence)}</span>
+        </div>`;
+      });
+      html+=`</div>`;
+    }
+
+    if(sekunder.length>0){
+      html+=`<div class="icd-section"><div class="icd-section-title">ICD-10 · Diagnosis Sekunder / Komorbiditas</div>`;
+      sekunder.forEach((item,i)=>{
+        html+=`<div class="icd-row secondary" style="transition-delay:${(primer.length+i)*0.06}s">
+          <div class="icd-code">${esc(item.code)}</div>
+          <div><div class="icd-desc">${esc(item.description)}</div><div class="icd-reason">${esc(item.reason||'')}</div></div>
+          <span class="conf-badge ${confClass(item.confidence)}">${confLabel(item.confidence)}</span>
+        </div>`;
+      });
+      html+=`</div>`;
+    }
+  }
+
+  // ICD-9-CM
+  html+=`<div class="icd-section"><div class="icd-section-title">ICD-9-CM · Prosedur</div>`;
+  if(icd.icd9&&icd.icd9.length>0){
+    icd.icd9.forEach((item,i)=>{
+      html+=`<div class="icd-row secondary" style="transition-delay:${((icd.icd10||[]).length+i)*0.06}s">
+        <div class="icd-code">${esc(item.code)}</div>
+        <div><div class="icd-desc">${esc(item.description)}</div><div class="icd-reason">${esc(item.reason||'')}</div></div>
+        <span class="conf-badge ${confClass(item.confidence)}">${confLabel(item.confidence)}</span>
+      </div>`;
+    });
+  } else {
+    const note=icd.icd9_note||'Kode prosedur tidak dapat ditentukan dari anamnesis. Perlu dilengkapi dokter/koder berdasarkan tindakan aktual.';
+    html+=`<div style="padding:8px 0;font-size:13px;color:var(--gray-400);font-style:italic;">${esc(note)}</div>`;
+  }
+  html+=`</div>`;
+
+  document.getElementById('icdWrap').innerHTML=html;
+
+  // Animate rows
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.icd-row').forEach(el=>{
+      requestAnimationFrame(()=>el.classList.add('show'));
+    });
+  });
+
+  // Flags & warnings
+  const flagEl=document.getElementById('icdFlag');
+  const warnEl=document.getElementById('icdWarn');
+
+  if(icd.flags){
+    flagEl.textContent='⚠ '+icd.flags;
+    flagEl.classList.remove('hidden');
+  } else { flagEl.classList.add('hidden'); }
+
+  if(icd.info_needed){
+    warnEl.textContent='ℹ Informasi tambahan diperlukan untuk koding lebih spesifik: '+icd.info_needed;
+    warnEl.classList.remove('hidden');
+  } else { warnEl.classList.add('hidden'); }
+
+  document.getElementById('copyIcdBtn').classList.add('visible');
+}
+
+// ── COPY ──────────────────────────────────────────────────────
 function copySOAP(){
   if(!lastSOAP)return;
-  const txt=['S','O','A','P'].map(k=>`[${k} - ${META[k].w}]\n${lastSOAP[k]||'—'}`).join('\n\n');
+  const txt=['S','O','A','P'].map(k=>`[${k} - ${SOAP_META[k].w}]\n${lastSOAP[k]||'—'}`).join('\n\n');
   navigator.clipboard.writeText(txt).then(()=>{
     const b=document.getElementById('copyBtn');b.textContent='✓ Tersalin!';
     setTimeout(()=>b.textContent='⎘ Salin Hasil SOAP',2000);
   }).catch(()=>showAlert('Gagal menyalin.','warn'));
 }
 
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function copyICD(){
+  if(!lastICD)return;
+  let txt='=== REKOMENDASI KODING ICD ===\n';
+  txt+='** DRAFT — Wajib diverifikasi koder sebelum klaim **\n\n';
+  if(lastICD.icd10&&lastICD.icd10.length>0){
+    txt+='ICD-10:\n';
+    lastICD.icd10.forEach(x=>{
+      txt+=`[${x.type==='primer'?'UTAMA':'SEKUNDER'}] ${x.code} — ${x.description} (${x.confidence})\n`;
+      if(x.reason)txt+=`  Dasar: ${x.reason}\n`;
+    });
+  }
+  txt+='\nICD-9-CM (Prosedur):\n';
+  if(lastICD.icd9&&lastICD.icd9.length>0){
+    lastICD.icd9.forEach(x=>{txt+=`${x.code} — ${x.description} (${x.confidence})\n`;});
+  } else { txt+=(lastICD.icd9_note||'Perlu dilengkapi manual')+'\n'; }
+  if(lastICD.flags)txt+='\nCATATAN: '+lastICD.flags+'\n';
+  if(lastICD.info_needed)txt+='\nINFO TAMBAHAN DIPERLUKAN: '+lastICD.info_needed+'\n';
+
+  navigator.clipboard.writeText(txt).then(()=>{
+    const b=document.getElementById('copyIcdBtn');b.textContent='✓ Tersalin!';
+    setTimeout(()=>b.textContent='⎘ Salin Rekomendasi Koding',2000);
+  }).catch(()=>showAlert('Gagal menyalin.','warn'));
+}
+
+// ── HELPERS ───────────────────────────────────────────────────
+function esc(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function showAlert(m,t){document.getElementById('alertBox').innerHTML=`<div class="alert ${t}">${m}</div>`;}
 function clearAlert(){document.getElementById('alertBox').innerHTML='';}
 function setSt(m,t){document.getElementById('smsg').textContent=m;const d=document.getElementById('sdot');d.className='sdot'+(t==='err'?' err':t==='warn'?' warn':'');}
