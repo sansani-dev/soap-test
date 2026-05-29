@@ -21,14 +21,14 @@ export default {
     const url = new URL(request.url);
     if (request.method === 'POST' && url.pathname === '/api/analyze') {
 
-      // ════════════════════════════════════
-      // GANTI API KEY DI SINI
       const API_KEY = env.ANTHROPIC_KEY;
-      // ════════════════════════════════════
 
       let body;
       try { body = await request.json(); }
       catch { return new Response('Invalid JSON', { status: 400 }); }
+
+      // Override model dengan versi yang benar
+      body.model = 'claude-sonnet-4-5';
 
       const resp = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
