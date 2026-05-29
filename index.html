@@ -31,29 +31,18 @@ nav{
   box-shadow:0 2px 6px rgba(0,0,0,0.25);
 }
 .nav-logo{height:36px;width:auto;object-fit:contain;filter:brightness(0) invert(1);}
-.nav-logo-err{
-  height:36px;display:flex;align-items:center;gap:8px;
-  font-size:15px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:-.3px;
-}
+.nav-logo-err{height:36px;display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:-.3px;}
 .nav-divider{width:1px;height:24px;background:rgba(255,255,255,.2);}
-.nav-title{font-size:15px;font-weight:500;color:rgba(255,255,255,.92);letter-spacing:-.1px;}
+.nav-title{font-size:15px;font-weight:500;color:rgba(255,255,255,.92);}
 .nav-sub{font-size:12px;color:rgba(255,255,255,.45);margin-left:auto;}
 
 /* LAYOUT */
-.main{
-  max-width:1160px;margin:0 auto;
-  padding:24px 24px 48px;
-  display:grid;grid-template-columns:1fr 1fr;gap:20px;
-}
+.main{max-width:1160px;margin:0 auto;padding:24px 24px 48px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
 @media(max-width:740px){.main{grid-template-columns:1fr;}}
 
 /* PANEL */
 .panel{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);}
-.panel-head{
-  padding:14px 20px;border-bottom:1px solid var(--gray-200);
-  display:flex;align-items:center;justify-content:space-between;
-  background:var(--gray-50);
-}
+.panel-head{padding:14px 20px;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;justify-content:space-between;background:var(--gray-50);}
 .panel-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--gray-500);}
 .panel-meta{font-size:12px;color:var(--gray-400);}
 .panel-body{padding:24px;}
@@ -83,31 +72,20 @@ nav{
 .wave.on{opacity:1;}
 .wb{width:3px;border-radius:2px;background:var(--red);height:3px;transition:height .09s ease;opacity:.65;}
 
-/* DIVIDER LABEL */
-.dlabel{
-  font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;
-  color:var(--gray-400);display:flex;align-items:center;gap:8px;margin-bottom:10px;
-}
-.dlabel::before,.dlabel::after{content:'';flex:1;height:1px;background:var(--gray-200);}
+/* TX COUNT — invisible box, hanya untuk track karakter */
+/* transkrip tidak ditampilkan ke layar */
 
-/* TRANSCRIPT */
-.tx{
-  border:1px solid var(--gray-200);border-radius:var(--r);
-  background:var(--gray-50);padding:14px 16px;
-  min-height:200px;max-height:280px;overflow-y:auto;
-  font-size:14px;line-height:1.8;color:var(--gray-700);
-  white-space:pre-wrap;word-break:break-word;
-  scrollbar-width:thin;scrollbar-color:var(--gray-300) transparent;
+.tx-counter{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border:1px solid var(--gray-200);border-radius:var(--r);
+  background:var(--gray-50);margin-bottom:0;
 }
-.tx:empty::before{content:'Transkrip percakapan muncul real-time saat perekaman...';color:var(--gray-400);font-style:italic;}
-.interim{color:var(--gray-400);font-style:italic;}
+.tx-counter-label{font-size:13px;color:var(--gray-500);}
+.tx-counter-val{font-size:13px;font-weight:600;color:var(--blue);}
 
 /* BUTTONS */
 .brow{display:grid;grid-template-columns:100px 1fr;gap:10px;margin-top:14px;}
-.btn{
-  padding:11px 18px;border-radius:var(--r);font-size:14px;font-weight:500;
-  cursor:pointer;border:1px solid transparent;outline:none;transition:all .12s;text-align:center;
-}
+.btn{padding:11px 18px;border-radius:var(--r);font-size:14px;font-weight:500;cursor:pointer;border:1px solid transparent;outline:none;transition:all .12s;text-align:center;}
 .btn-ghost{background:transparent;border-color:var(--gray-200);color:var(--gray-500);}
 .btn-ghost:hover{background:var(--gray-100);border-color:var(--gray-300);}
 .btn-blue{background:var(--blue);color:#fff;border-color:var(--blue);}
@@ -125,17 +103,20 @@ nav{
 .alert.err{background:var(--red-light);border-color:rgba(220,38,38,.2);color:var(--red);display:block;}
 .alert.warn{background:var(--amber-light);border-color:rgba(217,119,6,.2);color:var(--amber);display:block;}
 
+/* INFO BOX */
+.infobox{
+  border-radius:var(--r);padding:11px 14px;font-size:12.5px;line-height:1.6;
+  background:var(--teal-light);border:1px solid rgba(14,154,142,.2);color:#0c7a70;
+  margin-top:14px;
+}
+
 /* SOAP EMPTY */
 .sempty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:360px;gap:12px;padding:24px;}
 .sempty-mark{font-size:48px;font-weight:300;letter-spacing:10px;color:var(--gray-200);}
 .sempty-txt{font-size:14px;color:var(--gray-400);text-align:center;line-height:1.9;}
 
 /* SOAP BLOCKS */
-.sb{
-  padding:20px 22px;border-bottom:1px solid var(--gray-200);
-  opacity:0;transform:translateY(5px);
-  transition:opacity .3s ease,transform .3s ease;
-}
+.sb{padding:20px 22px;border-bottom:1px solid var(--gray-200);opacity:0;transform:translateY(5px);transition:opacity .3s ease,transform .3s ease;}
 .sb:last-child{border-bottom:none;}
 .sb.show{opacity:1;transform:none;}
 .sb:nth-child(1){transition-delay:.03s}.sb:nth-child(2){transition-delay:.09s}
@@ -145,11 +126,7 @@ nav{
 .sb[data-s="A"]{border-left:3px solid var(--A);}
 .sb[data-s="P"]{border-left:3px solid var(--P);}
 .sb-head{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-.sb-icon{
-  width:36px;height:36px;border-radius:7px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;font-weight:700;
-}
+.sb-icon{width:36px;height:36px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;}
 .sb[data-s="S"] .sb-icon{background:rgba(10,77,124,.07);color:var(--S);}
 .sb[data-s="O"] .sb-icon{background:rgba(124,58,237,.07);color:var(--O);}
 .sb[data-s="A"] .sb-icon{background:rgba(194,65,12,.07);color:var(--A);}
@@ -159,23 +136,13 @@ nav{
 .sb-text{font-size:14px;line-height:1.85;color:var(--gray-700);white-space:pre-wrap;}
 
 /* COPY */
-.copy-btn{
-  display:none;margin:0 22px 20px;
-  padding:10px;border-radius:var(--r);
-  background:transparent;border:1px solid var(--gray-200);
-  color:var(--gray-500);font-size:13px;font-weight:500;
-  cursor:pointer;transition:all .12s;width:calc(100% - 44px);
-}
+.copy-btn{display:none;margin:0 22px 20px;padding:10px;border-radius:var(--r);background:transparent;border:1px solid var(--gray-200);color:var(--gray-500);font-size:13px;font-weight:500;cursor:pointer;transition:all .12s;width:calc(100% - 44px);}
 .copy-btn:hover{background:var(--gray-100);border-color:var(--gray-300);color:var(--gray-700);}
 .copy-btn.visible{display:block;}
 
 /* STATUS */
 .statusbar{max-width:1160px;margin:0 auto;padding:0 24px 28px;}
-.sb-inner{
-  background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);
-  padding:10px 16px;display:flex;align-items:center;gap:10px;
-  font-size:12px;color:var(--gray-400);
-}
+.sb-inner{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--gray-400);}
 .sdot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0;}
 .sdot.err{background:var(--red);}.sdot.warn{background:var(--amber);}
 .sright{margin-left:auto;font-size:12px;color:var(--gray-400);}
@@ -207,6 +174,7 @@ nav{
     </div>
     <div class="panel-body">
       <div id="alertBox"></div>
+
       <div class="rec-area">
         <button class="rec-btn" id="recBtn" onclick="toggleRecord()">
           <div class="rec-dot" id="recDot"></div>
@@ -218,8 +186,11 @@ nav{
         <div class="wave" id="wave"></div>
       </div>
 
-      <div class="dlabel">Transkrip</div>
-      <div class="tx" id="txBox"></div>
+      <!-- Hanya tampilkan jumlah kata, bukan isi transkrip -->
+      <div class="tx-counter">
+        <span class="tx-counter-label">Kata terekam</span>
+        <span class="tx-counter-val" id="wordCount">0 kata</span>
+      </div>
 
       <div class="brow">
         <button class="btn btn-ghost" onclick="clearAll()">Reset</button>
@@ -232,6 +203,10 @@ nav{
         <span class="lang">Jawa</span>
         <span class="lang">Minang</span>
         <span class="lang">Batak</span>
+      </div>
+
+      <div class="infobox">
+        ✦ Percakapan non-medis (administrasi, BPJS, asuransi, komentar tentang faskes lain) diabaikan otomatis dan tidak akan masuk ke SOAP.
       </div>
     </div>
   </div>
@@ -284,7 +259,7 @@ function buildRec(){
       const t=e.results[i][0].transcript;
       if(e.results[i].isFinal)finalTx+=t+' ';else interimTx=t;
     }
-    renderTx();updEst();
+    updCount();
     document.getElementById('analyzeBtn').disabled=finalTx.trim().length<15;
   };
   r.onerror=e=>{
@@ -295,15 +270,11 @@ function buildRec(){
   return r;
 }
 
-function renderTx(){
-  const b=document.getElementById('txBox');b.innerHTML='';
-  if(finalTx){const s=document.createElement('span');s.textContent=finalTx;b.appendChild(s);}
-  if(interimTx){const s=document.createElement('span');s.className='interim';s.textContent=interimTx;b.appendChild(s);}
-  b.scrollTop=b.scrollHeight;
-}
-
-function updEst(){
-  const w=finalTx.trim().split(/\s+/).length,tI=Math.round(w*1.4)+300,tO=400;
+function updCount(){
+  const words=finalTx.trim()===''?0:finalTx.trim().split(/\s+/).length;
+  document.getElementById('wordCount').textContent=words+' kata';
+  // estimasi token untuk status bar
+  const tI=Math.round(words*1.4)+300,tO=400;
   document.getElementById('tokenInfo').textContent=`~${tI} token · est. $${(((tI/1e6)*3)+((tO/1e6)*15)).toFixed(4)}/call`;
 }
 
@@ -346,12 +317,12 @@ function stopRec(){
 function clearAll(){
   if(isRecording)stopRec();
   finalTx='';interimTx='';lastSOAP=null;seconds=0;
-  document.getElementById('txBox').innerHTML='';
   document.getElementById('recTime').textContent='00:00';
   document.getElementById('recState').textContent='Tekan untuk mulai merekam';
   document.getElementById('recInd').textContent='Siap';
   document.getElementById('recInd').style.color='var(--gray-400)';
   document.getElementById('analyzeBtn').disabled=true;
+  document.getElementById('wordCount').textContent='0 kata';
   document.getElementById('tokenInfo').textContent='';
   document.getElementById('soapStatus').textContent='Menunggu analisis';
   document.getElementById('copyBtn').classList.remove('visible');
@@ -368,14 +339,28 @@ async function analyzeSOAP(){
   setSt('Mengirim ke Claude...','');
   document.getElementById('soapWrap').innerHTML=`<div class="sempty"><div class="sempty-mark" style="opacity:.25">SOAP</div><div class="sempty-txt">Sedang menganalisis transkrip...</div></div>`;
 
-  const SYS=`Kamu adalah asisten medis RS Sansani Pekanbaru yang mengkonversi transkrip percakapan dokter-pasien menjadi SOAP note.
+  const SYS=`Kamu adalah asisten medis RS Sansani Pekanbaru yang mengekstrak informasi klinis dari transkrip percakapan dokter-pasien dan mengkonversinya menjadi SOAP note.
+
+PENTING — Filter ketat sebelum mengekstrak:
+Abaikan sepenuhnya semua percakapan yang tidak berhubungan dengan kondisi medis pasien, termasuk:
+- Pembahasan administrasi, BPJS, asuransi, biaya, pembayaran
+- Komentar tentang faskes lain, dokter lain, atau institusi kesehatan lain
+- Keluhan operasional, prosedur klaim, atau kebijakan rumah sakit
+- Percakapan basa-basi atau topik di luar kondisi pasien
+
+Hanya ekstrak informasi klinis murni: keluhan, gejala, pemeriksaan, diagnosis, dan rencana pengobatan.
+
 Transkrip mungkin dalam bahasa Indonesia, Inggris, atau campuran bahasa daerah (Minang, Jawa, Batak). Transkripsi otomatis sering tidak sempurna — interpretasikan dari konteks medis.
-Kembalikan HANYA JSON ini tanpa teks lain: {"S":"...","O":"...","A":"...","P":"..."}
-- S: Keluhan utama, onset, durasi, riwayat penyakit sekarang.
-- O: Tanda vital, pemeriksaan fisik, lab. Jika tidak ada tulis "Tidak disebutkan."
-- A: Diagnosis kerja atau kesan klinis.
-- P: Resep, dosis, durasi, edukasi, rujukan, follow-up.
-Gunakan Bahasa Indonesia baku dan terminologi medis tepat.`;
+
+Kembalikan HANYA JSON ini tanpa teks lain:
+{"S":"...","O":"...","A":"...","P":"..."}
+
+- S: Keluhan utama, onset, durasi, karakteristik, riwayat penyakit sekarang (dari sudut pandang pasien).
+- O: Tanda vital, hasil pemeriksaan fisik, laboratorium. Jika tidak disebutkan, tulis "Tidak disebutkan."
+- A: Diagnosis kerja atau kesan klinis dokter.
+- P: Rencana tatalaksana — obat, dosis, durasi, edukasi pasien, rujukan, follow-up.
+
+Gunakan Bahasa Indonesia baku dan terminologi medis yang tepat.`;
 
   try{
     const resp=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -397,7 +382,12 @@ Gunakan Bahasa Indonesia baku dan terminologi medis tepat.`;
   }finally{btn.disabled=false;btn.classList.remove('loading');btn.textContent='Analisis → SOAP';}
 }
 
-const META={S:{w:'Subjective',d:'Keluhan & Riwayat Pasien'},O:{w:'Objective',d:'Temuan Objektif'},A:{w:'Assessment',d:'Diagnosis / Kesan Klinis'},P:{w:'Plan',d:'Rencana Tatalaksana'}};
+const META={
+  S:{w:'Subjective',d:'Keluhan & Riwayat Pasien'},
+  O:{w:'Objective',d:'Temuan Objektif'},
+  A:{w:'Assessment',d:'Diagnosis / Kesan Klinis'},
+  P:{w:'Plan',d:'Rencana Tatalaksana'}
+};
 
 function renderSOAP(soap){
   const html=['S','O','A','P'].map(k=>`
